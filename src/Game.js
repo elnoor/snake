@@ -6,13 +6,21 @@ const HEIGHT = 10;
 const SNAKE_SPEED = 400;
 const FOOD_SPAWN_SPEED = 3000;
 const DIRECTION = { right: 39, left: 37, top: 38, bottom: 40 };
+const FOOD_OPTIONS = [
+  { type: "red", score: 1 },
+  { type: "green", score: 2 },
+  { type: "blue", score: 3 },
+  { type: "orange", score: 4 },
+  { type: "gold", score: 10 },
+  { type: "black", score: -5 },
+];
 
 export default function Game() {
   const [grid, setGrid] = useState([]);
-  const [snake, setSnake] = useState([[0, 0]]);
+  const [snake, setSnake] = useState([{ x: 0, y: 0 }]);
   const [direction, setDirection] = useState(DIRECTION.right);
-  const [intervalId, setIntervalId] = useState(null);
-  const [food, setFood] = useState([getRandomCell()]);
+  const [food, setFood] = useState([getRandomFood()]);
+  const [score, setScore] = useState(0);
 
   const moveSnake = useCallback(
     (_direction) => {
@@ -29,14 +37,14 @@ export default function Game() {
 
         // coordinates in which snake is located
         _snake.forEach((s) => {
-          _grid[s[1]][s[0]] = "snake";
+          _grid[s.y][s.x] = `snake ${s.foodType}`;
         });
 
         // coordinates in which food is located
         _food.forEach((f) => {
-          var cell = _grid[f[1]][f[0]];
+          var cell = _grid[f.y][f.x];
           if (cell === null) {
-            _grid[f[1]][f[0]] = "food";
+            _grid[f.y][f.x] = `food ${f.type}`;
           }
         });
 
@@ -44,43 +52,51 @@ export default function Game() {
       }
 
       const _snake = [...snake];
-      const head = _snake[_snake.length - 1];
-      let headX = head[0];
-      let headY = head[1];
-      const maxY = HEIGHT - 1;
-      const maxX = WIDTH - 1;
+      const head = { ..._snake[_snake.length - 1] };
+      const max = { x: WIDTH - 1, y: HEIGHT - 1 };
       switch (_direction) {
         case DIRECTION.right:
-          headX++;
-          headX = headX > maxX ? 0 : headX;
+          head.x++;
+          head.x = head.x > max.x ? 0 : head.x;
           break;
         case DIRECTION.left:
-          headX--;
-          headX = headX < 0 ? maxX : headX;
+          head.x--;
+          head.x = head.x < 0 ? max.x : head.x;
           break;
         case DIRECTION.top:
-          headY--;
-          headY = headY < 0 ? maxY : headY;
+          head.y--;
+          head.y = head.y < 0 ? max.y : head.y;
           break;
         case DIRECTION.bottom:
-          headY++;
-          headY = headY > maxY ? 0 : headY;
+          head.y++;
+          head.y = head.y > max.y ? 0 : head.y;
           break;
         default:
           break;
       }
 
-      _snake.push([headX, headY]); // move (add) head
+      // touched itself
+      if (_snake.some((s) => s.x === head.x && s.y === head.y)) {
+        // if (window.confirm("Game Over")) {
+        //   window.location.reload();
+        // }
+        return;
+      }
+
+      _snake.push(head);
       let removeTail = true;
       let _food = [];
       setFood((prevFood) => {
         // check if snake eats food
         const _prevFood = [...prevFood];
         const foodIndex = _prevFood.findIndex(
-          (f) => f[0] === headX && f[1] === headY
+          (f) => f.x === head.x && f.y === head.y
         );
         if (foodIndex > -1) {
-          _prevFood.splice(foodIndex, 1); // remove food
+          const eatenFood = _prevFood[foodIndex];
+          head.foodType = eatenFood.type; // food type in stomach
+          setScore((prevScore) => prevScore + eatenFood.score);
+          _prevFood.splice(foodIndex, 1); // remove eaten food from board
           removeTail = false;
         }
         _food = _prevFood;
@@ -90,6 +106,7 @@ export default function Game() {
       if (removeTail) {
         _snake.shift();
       }
+      delete(_snake.foodType);
 
       setSnake(_snake);
       makeGrid(_snake, _food);
@@ -97,29 +114,29 @@ export default function Game() {
     [snake]
   );
 
+  // move snake in a direction continiously or with user input (direction)
   useEffect(() => {
+    const interval = setInterval(() => {
+      moveSnake(direction);
+    }, SNAKE_SPEED);
+
     function onDirectionChange(e) {
       const _direction = e.keyCode;
       if (_direction !== direction) {
-        clearInterval(intervalId); // immediately make the turn
+        clearInterval(interval);
         setDirection(_direction);
         moveSnake(_direction);
       }
     }
     document.addEventListener("keydown", onDirectionChange);
-    return () => document.removeEventListener("keydown", onDirectionChange);
-  }, [direction, moveSnake, intervalId]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      moveSnake(direction);
-    }, SNAKE_SPEED);
-    setIntervalId(interval);
     return () => {
+      document.removeEventListener("keydown", onDirectionChange);
       clearInterval(interval);
     };
-  }, [moveSnake, direction]);
+  }, [direction, moveSnake]);
 
+  // generate certain number of food periodically if needed
   useEffect(() => {
     function makeFood() {
       setFood((prevFood) => {
@@ -128,10 +145,10 @@ export default function Game() {
         if (prevFood.length < maxFoodCount) {
           const newFood = [];
           // max number of new food can be generated each time
-          for (let i = 0; i <= maxFoodCount / 6; i++) {
-            const cell = getRandomCell();
+          for (let i = 0; i <= maxFoodCount / 5; i++) {
+            const cell = getRandomFood();
             newFood.push(cell);
-            if ([prevFood].length + newFood.length === maxFoodCount) {
+            if (prevFood.length + newFood.length === maxFoodCount) {
               break;
             }
           }
@@ -149,23 +166,27 @@ export default function Game() {
     };
   }, []);
 
-  function getRandomCell() {
-    let x = Math.round(Math.random() * WIDTH);
-    let y = Math.round(Math.random() * HEIGHT);
-    x = x < 0 ? 0 : x >= WIDTH ? WIDTH - 1 : x;
-    y = y < 0 ? 0 : y >= HEIGHT ? HEIGHT - 1 : y;
-    return [x, y];
+  function getRandomFood() {
+    let x = Math.floor(Math.random() * WIDTH);
+    // x = x < 0 ? 0 : x >= WIDTH ? WIDTH - 1 : x;
+
+    let y = Math.floor(Math.random() * HEIGHT);
+    // y = y < 0 ? 0 : y >= HEIGHT ? HEIGHT - 1 : y;
+
+    const foodOption =
+      FOOD_OPTIONS[Math.floor(Math.random() * FOOD_OPTIONS.length)];
+    return { x, y, ...foodOption };
   }
 
-  return <Board grid={grid} />;
+  return <Board grid={grid} score={score} />;
 }
 
-// Use memo, so that render will happen once per grid change (props.grid)
+// Use memo, so that render will happen once per props change
 const Board = React.memo((props) => {
   function render() {
     return (
       <div className="board">
-        hello
+        Score: {props.score}
         <table>
           <tbody>
             {props.grid.map((row, rowIndex) => {
@@ -173,12 +194,8 @@ const Board = React.memo((props) => {
                 <tr key={rowIndex}>
                   {row.map((column, colIndex) => {
                     return (
-                      <td key={colIndex}>
-                        {column === "snake"
-                          ? "x"
-                          : column === "food"
-                          ? "f"
-                          : ""}
+                      <td key={colIndex} className={column}>
+                        <span />
                       </td>
                     );
                   })}
