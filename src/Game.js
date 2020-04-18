@@ -228,12 +228,13 @@ export default function Game() {
   return (
     <div className="game">
       <div className="header">
+        <h3>Candy Snake</h3>
         {gameOver && (
-          <span style={{ float: "left" }}>
+          <span className="left">
             Game Over! <u onClick={reset}>Play Again</u>
           </span>
         )}
-        Score: {score}
+        <span className="right">Score: {score}</span>
       </div>
       <Board grid={grid} />
     </div>
