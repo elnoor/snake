@@ -2,7 +2,12 @@
   "name": "snake",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
+  "description" : "Moderinized snake game coded in React",
+  "homepage" : "http://documentcloud.github.com/underscore/",
+  "keywords" : ["snake", "game", "react", "javascript"],
+  "author" : "Elnur Mammadli <elnur@noorr.net>",
+  "contributors" : ["Graphic Designer <email@here.yes>"],
+  "dencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
