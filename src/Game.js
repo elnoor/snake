@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "./Game.css";
 
-const WIDTH = 10;
-const HEIGHT = 10;
-const SNAKE_SPEED = 200;
+const WIDTH = 12;
+const HEIGHT = 12;
+const SNAKE_SPEED = 150;
 const FOOD_SPAWN_SPEED = 3000;
-const DIRECTION = { right: 39, left: 37, top: 38, bottom: 40 };
 const FOOD_OPTIONS = [
   { type: "red", score: 1 },
   { type: "green", score: 2 },
@@ -19,7 +18,7 @@ export default function Game() {
   const [grid, setGrid] = useState([]);
   const [snake, setSnake] = useState([{ x: 0, y: 0 }]);
   const [stomach, setStomach] = useState([]);
-  const [direction, setDirection] = useState(DIRECTION.right);
+  const [direction, setDirection] = useState("right");
   const [food, setFood] = useState([getRandomFood()]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -40,7 +39,9 @@ export default function Game() {
 
         // coordinates in which snake is located
         _snake.forEach((s, i) => {
-          _grid[s.y][s.x] = `snake ${_stomach[i]}`;
+          _grid[s.y][s.x] = `snake ${
+            i === _snake.length - 1 ? `head ${_direction}` : _stomach[i] || ""
+          }`;
         });
 
         // coordinates in which food is located
@@ -55,22 +56,22 @@ export default function Game() {
       }
 
       const _snake = [...snake];
-      const head = { ..._snake[_snake.length - 1] };
+      const head = { ..._snake[_snake.length - 1] }; // head doesn't store food
       const max = { x: WIDTH - 1, y: HEIGHT - 1 };
       switch (_direction) {
-        case DIRECTION.right:
+        case "right":
           head.x++;
           head.x = head.x > max.x ? 0 : head.x;
           break;
-        case DIRECTION.left:
+        case "left":
           head.x--;
           head.x = head.x < 0 ? max.x : head.x;
           break;
-        case DIRECTION.top:
+        case "top":
           head.y--;
           head.y = head.y < 0 ? max.y : head.y;
           break;
-        case DIRECTION.bottom:
+        case "bottom":
           head.y++;
           head.y = head.y > max.y ? 0 : head.y;
           break;
@@ -123,7 +124,7 @@ export default function Game() {
       setStomach(_stomach);
       setFood(_food);
       setSnake(_snake);
-      makeGrid(_snake, _food, _stomach);
+      makeGrid(_snake, _food, _stomach, _direction);
     },
     [snake, stomach, food]
   );
@@ -137,8 +138,27 @@ export default function Game() {
       }, SNAKE_SPEED);
     }
     function onDirectionChange(e) {
-      const _direction = e.keyCode;
-      if (_direction !== direction) {
+      const _direction =
+        e.keyCode === 37
+          ? "left"
+          : e.keyCode === 38
+          ? "top"
+          : e.keyCode === 39
+          ? "right"
+          : e.keyCode === 40
+          ? "bottom"
+          : null;
+
+      if (
+        _direction &&
+        // not same direction
+        _direction !== direction &&
+        // moving reverse not allowed
+        ((_direction === "right" && direction !== "left") ||
+          (_direction === "left" && direction !== "right") ||
+          (_direction === "top" && direction !== "bottom") ||
+          (_direction === "bottom" && direction !== "top"))
+      ) {
         clearInterval(interval);
         setDirection(_direction);
         moveSnake(_direction);
@@ -161,7 +181,7 @@ export default function Game() {
       function makeFood() {
         setFood((prevFood) => {
           // max number of food possible to have on board
-          const maxFoodCount = (WIDTH * HEIGHT) / 15;
+          const maxFoodCount = (WIDTH * HEIGHT) / 20;
           if (prevFood.length < maxFoodCount) {
             const newFood = [];
             // max number of new food can be generated each time
@@ -200,43 +220,45 @@ export default function Game() {
   function reset() {
     setSnake([{ x: 0, y: 0 }]);
     setStomach([]);
-    setDirection(DIRECTION.right);
+    setDirection("right");
     setScore(0);
     setGameOver(false);
   }
 
-  return <Board grid={grid} score={score} gameOver={gameOver} reset={reset} />;
+  return (
+    <div className="board">
+      {gameOver && (
+        <span style={{ float: "left" }}>
+          Game Over! <u onClick={reset}>Play Again</u>
+        </span>
+      )}
+      Score: {score}
+      <Board grid={grid} />
+    </div>
+  );
 }
 
-// Use memo, so that render will happen once per props change
+// Use memo, so that render will happen once per props change (grid)
 const Board = React.memo((props) => {
   function render() {
     return (
-      <div className="board">
-        {props.gameOver && (
-          <span style={{ float: "left" }}>
-            Game Over! <u onClick={props.reset}>Play Again</u>
-          </span>
-        )}
-        Score: {props.score}
-        <table>
-          <tbody>
-            {props.grid.map((row, rowIndex) => {
-              return (
-                <tr key={rowIndex}>
-                  {row.map((column, colIndex) => {
-                    return (
-                      <td key={colIndex} className={column}>
-                        <span />
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <table>
+        <tbody>
+          {props.grid.map((row, rowIndex) => {
+            return (
+              <tr key={rowIndex}>
+                {row.map((column, colIndex) => {
+                  return (
+                    <td key={colIndex} className={column}>
+                      <span />
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     );
   }
   return render();

@@ -1,7 +1,8 @@
 td {
-  border: 1px solid #f7f7f7;
-  width: 50px;
-  height: 50px;
+  /* border: 1px solid #f7f7f7; */
+  border: none;
+  width: 40px;
+  height: 40px;
 }
 td > span {
   width: 100%;
@@ -11,15 +12,29 @@ td > span {
 td.snake {
   background: grey;
 }
+td.snake.head {
+  background-image: url("./assets/head.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+td.snake.head.left {
+  transform: rotate(180deg);
+}
+td.snake.head.top {
+  transform: rotate(270deg);
+}
+td.snake.head.bottom {
+  transform: rotate(90deg);
+}
 td.snake > span {
-    width: 60%;
-    height: 60%;
-    margin-top: 0%;
-    border-radius: 50%;
-    margin-left: 20%;
+  width: 60%;
+  height: 60%;
+  margin-top: 0%;
+  border-radius: 50%;
+  margin-left: 20%;
 }
 td.food {
-  border: 1px solid #dfdfdf;
+  /* border: 1px solid #dfdfdf; */
 }
 td.food > span {
   border-radius: 50%;
@@ -42,3 +57,5 @@ td.food > span {
 .orange > span {
   background: orange;
 }
+
+
