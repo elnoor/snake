@@ -131,33 +131,33 @@ export default function Game() {
 
   // move snake in a direction continiously or with user input
   useEffect(() => {
-    var xDown = null;
-    var yDown = null;
+    var touchStartX = null;
+    var touchStartY = null;
 
     function onTouchStart(evt) {
       const firstTouch = evt.touches[0];
-      xDown = firstTouch.clientX;
-      yDown = firstTouch.clientY;
+      touchStartX = firstTouch.clientX;
+      touchStartY = firstTouch.clientY;
     }
 
-    function onTouchMove(evt) {
-      if (!xDown || !yDown) {
+    function onTouchEnd(evt) {
+      if (!touchStartX || !touchStartY) {
         return;
       }
 
-      var xUp = evt.touches[0].clientX;
-      var yUp = evt.touches[0].clientY;
+      var touchEndX = evt.touches[0].clientX;
+      var touchEndY = evt.touches[0].clientY;
 
-      var xDiff = xDown - xUp;
-      var yDiff = yDown - yUp;
+      var diffX = touchStartX - touchEndX;
+      var diffY = touchStartY - touchEndY;
 
-      if (Math.abs(xDiff) > Math.abs(yDiff)) {
-        changeDirection(xDiff > 0 ? "left" : "right");
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        changeDirection(diffX > 0 ? "left" : "right");
       } else {
-        changeDirection(yDiff > 0 ? "up" : "down");
+        changeDirection(diffY > 0 ? "up" : "down");
       }
-      xDown = null;
-      yDown = null;
+      touchStartX = null;
+      touchStartY = null;
     }
 
     function onButtonClicked(e) {
@@ -202,13 +202,13 @@ export default function Game() {
     if (!gameOver) {
       document.addEventListener("keydown", onButtonClicked);
       document.addEventListener("touchstart", onTouchStart);
-      document.addEventListener("touchmove", onTouchMove);
+      document.addEventListener("touchend", onTouchEnd);
     }
 
     return () => {
       document.removeEventListener("keydown", onButtonClicked);
       document.addEventListener("touchstart", onTouchStart);
-      document.addEventListener("touchendmove", onTouchMove);
+      document.addEventListener("touchend", onTouchEnd);
       clearInterval(interval);
     };
   }, [direction, moveSnake, gameOver]);
