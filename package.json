@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "description" : "Moderinized snake game coded in React",
-  "homepage" : "http://documentcloud.github.com/underscore/",
   "keywords" : ["snake", "game", "react", "javascript"],
   "author" : "Elnur Mammadli <elnur@noorr.net>",
   "contributors" : ["Graphic Designer <email@here.yes>"],
