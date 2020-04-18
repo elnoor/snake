@@ -202,13 +202,13 @@ export default function Game() {
     if (!gameOver) {
       document.addEventListener("keydown", onButtonClicked);
       document.addEventListener("touchstart", onTouchStart);
-      document.addEventListener("touchend", onTouchMove);
+      document.addEventListener("touchmove", onTouchMove);
     }
 
     return () => {
       document.removeEventListener("keydown", onButtonClicked);
       document.addEventListener("touchstart", onTouchStart);
-      document.addEventListener("touchend", onTouchMove);
+      document.addEventListener("touchendmove", onTouchMove);
       clearInterval(interval);
     };
   }, [direction, moveSnake, gameOver]);
