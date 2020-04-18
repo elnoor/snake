@@ -134,19 +134,19 @@ export default function Game() {
     var touchStartX = null;
     var touchStartY = null;
 
-    function onTouchStart(evt) {
-      const firstTouch = evt.touches[0];
+    function onTouchStart(e) {
+      const firstTouch = e.touches[0];
       touchStartX = firstTouch.clientX;
       touchStartY = firstTouch.clientY;
     }
 
-    function onTouchEnd(evt) {
+    function onTouchMove(e) {
       if (!touchStartX || !touchStartY) {
         return;
       }
 
-      var touchEndX = evt.touches[0].clientX;
-      var touchEndY = evt.touches[0].clientY;
+      var touchEndX = e.touches[0].clientX;
+      var touchEndY = e.touches[0].clientY;
 
       var diffX = touchStartX - touchEndX;
       var diffY = touchStartY - touchEndY;
@@ -202,13 +202,13 @@ export default function Game() {
     if (!gameOver) {
       document.addEventListener("keydown", onButtonClicked);
       document.addEventListener("touchstart", onTouchStart);
-      document.addEventListener("touchend", onTouchEnd);
+      document.addEventListener("touchmove", onTouchMove);
     }
 
     return () => {
       document.removeEventListener("keydown", onButtonClicked);
       document.addEventListener("touchstart", onTouchStart);
-      document.addEventListener("touchend", onTouchEnd);
+      document.addEventListener("touchmove", onTouchMove);
       clearInterval(interval);
     };
   }, [direction, moveSnake, gameOver]);
