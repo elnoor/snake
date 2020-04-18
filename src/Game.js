@@ -67,11 +67,11 @@ export default function Game() {
           head.x--;
           head.x = head.x < 0 ? max.x : head.x;
           break;
-        case "top":
+        case "up":
           head.y--;
           head.y = head.y < 0 ? max.y : head.y;
           break;
-        case "bottom":
+        case "down":
           head.y++;
           head.y = head.y > max.y ? 0 : head.y;
           break;
@@ -129,26 +129,60 @@ export default function Game() {
     [snake, stomach, food]
   );
 
-  // move snake in a direction continiously or with user input (direction)
+  // move snake in a direction continiously or with user input
   useEffect(() => {
+    var xDown = null;
+    var yDown = null;
+
+    function onTouchStart(evt) {
+      const firstTouch = evt.touches[0];
+      xDown = firstTouch.clientX;
+      yDown = firstTouch.clientY;
+    }
+
+    function onTouchMove(evt) {
+      if (!xDown || !yDown) {
+        return;
+      }
+
+      var xUp = evt.touches[0].clientX;
+      var yUp = evt.touches[0].clientY;
+
+      var xDiff = xDown - xUp;
+      var yDiff = yDown - yUp;
+
+      if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        changeDirection(xDiff > 0 ? "left" : "right");
+      } else {
+        changeDirection(yDiff > 0 ? "up" : "down");
+      }
+      xDown = null;
+      yDown = null;
+    }
+
+    function onButtonClicked(e) {
+      changeDirection(
+        e.keyCode === 37
+          ? "left"
+          : e.keyCode === 38
+          ? "up"
+          : e.keyCode === 39
+          ? "right"
+          : e.keyCode === 40
+          ? "down"
+          : null
+      );
+    }
+
     let interval;
     if (!gameOver) {
+      // keep snake moving
       interval = setInterval(() => {
         moveSnake(direction);
       }, SNAKE_SPEED);
     }
-    function onDirectionChange(e) {
-      const _direction =
-        e.keyCode === 37
-          ? "left"
-          : e.keyCode === 38
-          ? "top"
-          : e.keyCode === 39
-          ? "right"
-          : e.keyCode === 40
-          ? "bottom"
-          : null;
 
+    function changeDirection(_direction) {
       if (
         _direction &&
         // not same direction
@@ -156,20 +190,25 @@ export default function Game() {
         // moving reverse not allowed
         ((_direction === "right" && direction !== "left") ||
           (_direction === "left" && direction !== "right") ||
-          (_direction === "top" && direction !== "bottom") ||
-          (_direction === "bottom" && direction !== "top"))
+          (_direction === "up" && direction !== "down") ||
+          (_direction === "down" && direction !== "up"))
       ) {
         clearInterval(interval);
         setDirection(_direction);
         moveSnake(_direction);
       }
     }
+
     if (!gameOver) {
-      document.addEventListener("keydown", onDirectionChange);
+      document.addEventListener("keydown", onButtonClicked);
+      document.addEventListener("touchstart", onTouchStart);
+      document.addEventListener("touchend", onTouchMove);
     }
 
     return () => {
-      document.removeEventListener("keydown", onDirectionChange);
+      document.removeEventListener("keydown", onButtonClicked);
+      document.addEventListener("touchstart", onTouchStart);
+      document.addEventListener("touchend", onTouchMove);
       clearInterval(interval);
     };
   }, [direction, moveSnake, gameOver]);
