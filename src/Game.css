@@ -1,5 +1,19 @@
+.game {
+  display: flex;
+}
+.header {
+  display: block;
+}
+table {
+  box-shadow: inset 0 0 23px 5px darkslategrey;
+  background: darkolivegreen;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  border-spacing: 0;
+}
 td {
-  /* border: 1px solid #f7f7f7; */
   border: none;
   width: 40px;
   height: 40px;
@@ -57,5 +71,3 @@ td.food > span {
 .orange > span {
   background: orange;
 }
-
-
