@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import "./Game.css";
 
 const WIDTH = 12;
@@ -155,7 +155,7 @@ export default function Game() {
 
   // move snake in a direction continiously or with user input
   useEffect(() => {
-    function onButtonClicked(e) {
+    function onKeyPress(e) {
       changeDirection(
         e.keyCode === 37
           ? "left"
@@ -177,11 +177,11 @@ export default function Game() {
       }, SNAKE_SPEED);
       setIntervalId(interval);
 
-      document.addEventListener("keydown", onButtonClicked);
+      document.addEventListener("keydown", onKeyPress);
     }
 
     return () => {
-      document.removeEventListener("keydown", onButtonClicked);
+      document.removeEventListener("keydown", onKeyPress);
       clearInterval(interval);
     };
   }, [direction, moveSnake, gameOver, changeDirection]);
@@ -234,12 +234,20 @@ export default function Game() {
     setStomach([]);
     setDirection("right");
     setScore(0);
+    setIntervalId(null);
     setGameOver(false);
   }
 
+  let navPadSize = Math.abs(window.innerWidth - window.innerHeight) + "px";
+  let gridSize;
+  if (window.innerWidth < window.innerHeight) {
+    gridSize = window.innerWidth + "px";
+  } else {
+    gridSize = window.innerHeight + "px";
+  }
   return (
     <div className="game">
-      <div className="header">
+      {/* <div className="header">
         <h3>Candy Snake</h3>
         {gameOver && (
           <span className="left">
@@ -247,9 +255,18 @@ export default function Game() {
           </span>
         )}
         <span className="right">Score: {score}</span>
+      </div> */}
+      {/* <Modal> */}
+
+      <div className="main" style={{ width: gridSize, height: gridSize }}>
+        <div className="header">
+          <div className="left">High scores</div>
+          <div className="center">Candy Snake</div>
+          <div className="right">{score}</div>
+        </div>
+        <Board grid={grid} />
       </div>
-      <Board grid={grid} />
-      <NavPad onClick={changeDirection} />
+      <NavPad onClick={changeDirection} size={navPadSize} />
     </div>
   );
 }
@@ -284,19 +301,21 @@ const Board = React.memo((props) => {
 const NavPad = React.memo((props) => {
   function render() {
     return (
-      <div className="navpad">
-        <button className="up" onClick={() => props.onClick("up")}>
-          U
-        </button>
-        <button className="right" onClick={() => props.onClick("right")}>
-          R
-        </button>
-        <button className="down" onClick={() => props.onClick("down")}>
-          D
-        </button>
-        <button className="left" onClick={() => props.onClick("left")}>
-          L
-        </button>
+      <div className="navpad" style={{ width: props.size, height: props.size }}>
+        <div>
+          <div className="up" onClick={() => props.onClick("up")}>
+            Up
+          </div>
+          <div className="right" onClick={() => props.onClick("right")}>
+            Right
+          </div>
+          <div className="left" onClick={() => props.onClick("left")}>
+            Left
+          </div>
+          <div className="down" onClick={() => props.onClick("down")}>
+            Down
+          </div>
+        </div>
       </div>
     );
   }
