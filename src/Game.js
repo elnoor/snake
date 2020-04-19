@@ -297,10 +297,10 @@ const Board = React.memo((props) => {
 // Controller pad to be used in mobile devices
 const NavPad = React.memo((props) => {
   function onClick(_direction) {
-    window.navigator.vibrate(100);
+    window.navigator.vibrate(10);
     props.onClick(_direction);
   }
-  
+
   function render() {
     return (
       <div className="navpad" style={{ width: props.size, height: props.size }}>
