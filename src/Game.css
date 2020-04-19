@@ -126,7 +126,7 @@ td.food > span {
   border: none;
   /* box-shadow: 0 0 0px 2px #5f5f5f; */
 }
-.navpad .inner > button:focus,
+.navpad .inner > button:active,
 .navpad .inner > button:hover {
   background: #404040;
   outline: none;
