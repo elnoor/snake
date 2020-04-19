@@ -247,20 +247,16 @@ export default function Game() {
   }
   return (
     <div className="game">
-      {/* <div className="header">
-        <h3>Candy Snake</h3>
-        {gameOver && (
-          <span className="left">
-            Game Over! <u onClick={reset}>Play Again</u>
-          </span>
-        )}
-        <span className="right">Score: {score}</span>
-      </div> */}
+      
       {/* <Modal> */}
 
       <div className="main" style={{ width: gridSize, height: gridSize }}>
         <div className="header">
-          <div className="left">High scores</div>
+          <div className="left">{gameOver && (
+          <span className="left">
+            Game Over! <u onClick={reset}>Play Again</u>
+          </span>
+        )}</div>
           <div className="center">Candy Snake</div>
           <div className="right">{score}</div>
         </div>
