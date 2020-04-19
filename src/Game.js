@@ -299,11 +299,19 @@ const NavPad = React.memo((props) => {
   function render() {
     return (
       <div className="navpad" style={{ width: props.size, height: props.size }}>
-        <div>
-          <div className="up" onClick={() => props.onClick("up")}></div>
-          <div className="right" onClick={() => props.onClick("right")}></div>
-          <div className="left" onClick={() => props.onClick("left")}></div>
-          <div className="down" onClick={() => props.onClick("down")}></div>
+        <div className="inner">
+          <button className="up" onClick={() => props.onClick("up")}>
+            <span></span>
+          </button>
+          <button className="right" onClick={() => props.onClick("right")}>
+            <span></span>
+          </button>
+          <button className="left" onClick={() => props.onClick("left")}>
+            <span></span>
+          </button>
+          <button className="down" onClick={() => props.onClick("down")}>
+            <span></span>
+          </button>
         </div>
       </div>
     );

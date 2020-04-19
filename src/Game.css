@@ -103,7 +103,7 @@ td.food > span {
   overflow: hidden;
   margin: auto;
 }
-.navpad > div {
+.navpad .inner {
   margin-top: 6%;
   margin-left: auto;
   margin-right: auto;
@@ -115,19 +115,50 @@ td.food > span {
   box-shadow: 0 0 10px 0px black;
   border: 1px solid #505050;
 }
-.navpad > div > div {
+.navpad .inner > button {
   float: left;
   background: #4c4c4c;
   width: 50%;
   height: 50%;
   padding: 0;
   margin: 0;
+  position: relative;
+  border: none;
   /* box-shadow: 0 0 0px 2px #5f5f5f; */
 }
-.navpad > div > div:focus,
-.navpad > div > div:hover {
+.navpad .inner > button:focus,
+.navpad .inner > button:hover {
   background: #404040;
   outline: none;
+}
+.navpad .inner > button > span {
+  width: 15%;
+  height: 15%;
+  position: absolute;
+}
+.navpad .inner > button.up > span {
+  border-left: 1px solid #2f2f2f;
+  border-top: 1px solid #2f2f2f;
+  bottom: 40%;
+  right: 40%;
+}
+.navpad .inner > button.down > span {
+  border-right: 1px solid #2f2f2f;
+  border-bottom: 1px solid #2f2f2f;
+  bottom: 40%;
+  right: 40%;
+}
+.navpad .inner > button.left > span {
+  border-left: 1px solid #2f2f2f;
+  border-bottom: 1px solid #2f2f2f;
+  bottom: 40%;
+  right: 40%;
+}
+.navpad .inner > button.right > span {
+  border-right: 1px solid #2f2f2f;
+  border-top: 1px solid #2f2f2f;
+  bottom: 40%;
+  right: 40%;
 }
 
 /*** Mobile ***/
