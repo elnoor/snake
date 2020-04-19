@@ -296,20 +296,25 @@ const Board = React.memo((props) => {
 
 // Controller pad to be used in mobile devices
 const NavPad = React.memo((props) => {
+  function onClick(_direction) {
+    window.navigator.vibrate(100);
+    props.onClick(_direction);
+  }
+  
   function render() {
     return (
       <div className="navpad" style={{ width: props.size, height: props.size }}>
         <div className="inner">
-          <button className="up" onClick={() => props.onClick("up")}>
+          <button className="up" onClick={() => onClick("up")}>
             <span></span>
           </button>
-          <button className="right" onClick={() => props.onClick("right")}>
+          <button className="right" onClick={() => onClick("right")}>
             <span></span>
           </button>
-          <button className="left" onClick={() => props.onClick("left")}>
+          <button className="left" onClick={() => onClick("left")}>
             <span></span>
           </button>
-          <button className="down" onClick={() => props.onClick("down")}>
+          <button className="down" onClick={() => onClick("down")}>
             <span></span>
           </button>
         </div>
