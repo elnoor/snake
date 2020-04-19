@@ -21,6 +21,7 @@ export default function Game() {
   const [direction, setDirection] = useState("right");
   const [food, setFood] = useState([getRandomFood()]);
   const [score, setScore] = useState(0);
+  const [intervalId, setIntervalId] = useState(null);
   const [gameOver, setGameOver] = useState(false);
 
   const moveSnake = useCallback(
@@ -129,37 +130,31 @@ export default function Game() {
     [snake, stomach, food]
   );
 
+  const changeDirection = useCallback(
+    (_direction) => {
+      if (
+        _direction &&
+        // not same direction
+        _direction !== direction &&
+        // moving reverse not allowed
+        ((_direction === "right" && direction !== "left") ||
+          (_direction === "left" && direction !== "right") ||
+          (_direction === "up" && direction !== "down") ||
+          (_direction === "down" && direction !== "up"))
+      ) {
+        moveSnake(_direction);
+        setDirection(_direction);
+        setIntervalId((prevIntervalId) => {
+          clearInterval(prevIntervalId);
+          return null;
+        });
+      }
+    },
+    [moveSnake, direction]
+  );
+
   // move snake in a direction continiously or with user input
   useEffect(() => {
-    var touchStartX = null;
-    var touchStartY = null;
-
-    function onTouchStart(e) {
-      const firstTouch = e.touches[0];
-      touchStartX = firstTouch.clientX;
-      touchStartY = firstTouch.clientY;
-    }
-
-    function onTouchMove(e) {
-      if (!touchStartX || !touchStartY) {
-        return;
-      }
-
-      var touchEndX = e.touches[0].clientX;
-      var touchEndY = e.touches[0].clientY;
-
-      var diffX = touchStartX - touchEndX;
-      var diffY = touchStartY - touchEndY;
-
-      if (Math.abs(diffX) > Math.abs(diffY)) {
-        changeDirection(diffX > 0 ? "left" : "right");
-      } else {
-        changeDirection(diffY > 0 ? "up" : "down");
-      }
-      touchStartX = null;
-      touchStartY = null;
-    }
-
     function onButtonClicked(e) {
       changeDirection(
         e.keyCode === 37
@@ -180,38 +175,16 @@ export default function Game() {
       interval = setInterval(() => {
         moveSnake(direction);
       }, SNAKE_SPEED);
-    }
+      setIntervalId(interval);
 
-    function changeDirection(_direction) {
-      if (
-        _direction &&
-        // not same direction
-        _direction !== direction &&
-        // moving reverse not allowed
-        ((_direction === "right" && direction !== "left") ||
-          (_direction === "left" && direction !== "right") ||
-          (_direction === "up" && direction !== "down") ||
-          (_direction === "down" && direction !== "up"))
-      ) {
-        clearInterval(interval);
-        setDirection(_direction);
-        moveSnake(_direction);
-      }
-    }
-
-    if (!gameOver) {
       document.addEventListener("keydown", onButtonClicked);
-      document.addEventListener("touchstart", onTouchStart);
-      document.addEventListener("touchmove", onTouchMove);
     }
 
     return () => {
       document.removeEventListener("keydown", onButtonClicked);
-      document.addEventListener("touchstart", onTouchStart);
-      document.addEventListener("touchmove", onTouchMove);
       clearInterval(interval);
     };
-  }, [direction, moveSnake, gameOver]);
+  }, [direction, moveSnake, gameOver, changeDirection]);
 
   // generate certain number of food periodically if needed
   useEffect(() => {
@@ -276,6 +249,7 @@ export default function Game() {
         <span className="right">Score: {score}</span>
       </div>
       <Board grid={grid} />
+      <NavPad onClick={changeDirection} />
     </div>
   );
 }
@@ -301,6 +275,29 @@ const Board = React.memo((props) => {
           })}
         </tbody>
       </table>
+    );
+  }
+  return render();
+});
+
+// Controller pad to be used in mobile devices
+const NavPad = React.memo((props) => {
+  function render() {
+    return (
+      <div className="navpad">
+        <button className="up" onClick={() => props.onClick("up")}>
+          U
+        </button>
+        <button className="right" onClick={() => props.onClick("right")}>
+          R
+        </button>
+        <button className="down" onClick={() => props.onClick("down")}>
+          D
+        </button>
+        <button className="left" onClick={() => props.onClick("left")}>
+          L
+        </button>
+      </div>
     );
   }
   return render();

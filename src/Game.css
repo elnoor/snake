@@ -1,19 +1,83 @@
 .game {
-  display: block
+  display: block;
 }
 .header {
   display: block;
   text-align: center;
   padding: 5px;
 }
-.header h3{
+.header h3 {
   margin: 0;
 }
-.header .left{
+.header .left {
   margin-right: 3rem;
 }
-.header .right{
+.header .right {
 }
+.navpad {
+  display: none;
+  width: 130px;
+  height: 130px;
+  background: lightgray;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+.navpad button {
+  background: gray;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  border: none;
+}
+.navpad button::after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 28px;
+  background: gray;
+  transform: rotate(45deg);
+  position: absolute;
+}
+.navpad button.up {
+  top: 0;
+  left: calc((100% - 40px) / 2);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.navpad button.up::after {
+  bottom: -15px;
+}
+.navpad button.down {
+  bottom: 0;
+  left: calc((100% - 40px) / 2);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.navpad button.down::after {
+  top: -15px;
+}
+.navpad button.left {
+  left: 0;
+  top: calc((100% - 40px) / 2);
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.navpad button.left::after {
+  right: -14px;
+  top: 6px;
+}
+.navpad button.right {
+  right: 0;
+  top: calc((100% - 40px) / 2);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.navpad button.right::after {
+  left: -14px;
+  top: 6px;
+}
+
 table {
   box-shadow: inset 0 0 23px 5px darkslategrey;
   background: darkolivegreen;
@@ -41,7 +105,7 @@ td.snake.head {
   background-repeat: no-repeat;
   background-color: transparent;
 }
-td.snake.head > span{
+td.snake.head > span {
   box-shadow: none;
 }
 td.snake.head.left {
@@ -59,14 +123,14 @@ td.snake > span {
   margin-top: 0%;
   border-radius: 50%;
   margin-left: 20%;
-  box-shadow:  inset 2px 1px 3px 0px #303030;
+  box-shadow: inset 2px 1px 3px 0px #303030;
 }
 td.food {
   /* border: 1px solid #dfdfdf; */
 }
 td.food > span {
   border-radius: 50%;
-  box-shadow:  inset 2px 1px 6px 0px black;
+  box-shadow: inset 2px 1px 6px 0px black;
 }
 .red > span {
   background: red;
@@ -85,4 +149,12 @@ td.food > span {
 }
 .orange > span {
   background: orange;
+}
+
+
+/*** Mobile ***/
+@media only screen and (max-width: 540px) {
+  .navpad{
+    display: block;
+  }
 }
