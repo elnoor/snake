@@ -247,16 +247,17 @@ export default function Game() {
   }
   return (
     <div className="game">
-      
       {/* <Modal> */}
 
       <div className="main" style={{ width: gridSize, height: gridSize }}>
         <div className="header">
-          <div className="left">{gameOver && (
-          <span className="left">
-            Game Over! <u onClick={reset}>Play Again</u>
-          </span>
-        )}</div>
+          <div className="left">
+            {gameOver && (
+              <span className="left">
+                Game Over! <u onClick={reset}>Play Again</u>
+              </span>
+            )}
+          </div>
           <div className="center">Candy Snake</div>
           <div className="right">{score}</div>
         </div>
@@ -299,18 +300,10 @@ const NavPad = React.memo((props) => {
     return (
       <div className="navpad" style={{ width: props.size, height: props.size }}>
         <div>
-          <div className="up" onClick={() => props.onClick("up")}>
-            Up
-          </div>
-          <div className="right" onClick={() => props.onClick("right")}>
-            Right
-          </div>
-          <div className="left" onClick={() => props.onClick("left")}>
-            Left
-          </div>
-          <div className="down" onClick={() => props.onClick("down")}>
-            Down
-          </div>
+          <div className="up" onClick={() => props.onClick("up")}></div>
+          <div className="right" onClick={() => props.onClick("right")}></div>
+          <div className="left" onClick={() => props.onClick("left")}></div>
+          <div className="down" onClick={() => props.onClick("down")}></div>
         </div>
       </div>
     );
