@@ -9,7 +9,7 @@ export default function Modal(props) {
           <div className="modal">
             <div className="modal-header">{props.header}</div>
             <div className="modal-body">{props.children}</div>
-            <div className="modal-footer">{props.footer}</div>
+            <div className="modal-footer" onClick={props.onFooterClick}>{props.footer}</div>
           </div>
         </div>
       )

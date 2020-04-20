@@ -1,5 +1,4 @@
 import React from "react";
-import "./GameOver.css";
 import Modal from "../Modal/Modal";
 
 export default function GameOver(props) {
@@ -8,7 +7,8 @@ export default function GameOver(props) {
       <Modal
         open={true}
         header="Game Over"
-        footer={<span onClick={props.playAgain}>Play Again</span>}
+        footer="Play Again"
+        onFooterClick={props.playAgain}
       >
         <h2>
           <small>Your Score</small>

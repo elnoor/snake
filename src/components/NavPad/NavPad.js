@@ -7,14 +7,17 @@ import "./NavPad.css";
     width={navPadSize.width}
     height={navPadSize.height}
     landscape={landscape}
+    vibration={settings.current.vibration}
   />
 */
 
 // Controller pad to be used in mobile devices
 export const NavPad = React.memo((props) => {
   function onClick(_direction) {
-    window.navigator.vibrate(10);
     props.onClick(_direction);
+    if (props.vibration) {
+      window.navigator.vibrate(10);
+    }
   }
 
   function render() {

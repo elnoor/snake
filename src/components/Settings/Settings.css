@@ -1,0 +1,24 @@
+.settings {
+  padding: 15px;
+  font-size: 1.3rem;
+}
+.settings h4 {
+  background: #864300;
+  margin: 0 -15px 10px -15px;
+}
+.settings input[type="checkbox"] {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+.settings ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flow-root;
+}
+.settings li span:first-child {
+  float: left;
+}
+.settings li span:last-child {
+  float: right;
+}

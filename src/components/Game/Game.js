@@ -3,6 +3,8 @@ import "./Game.css";
 import { Board } from "./../Board/Board";
 import { NavPad } from "./../NavPad/NavPad";
 import GameOver from "./../GameOver/GameOver";
+import Settings from "./../Settings/Settings";
+import store from "store";
 
 const WIDTH = 12;
 const HEIGHT = 12;
@@ -18,6 +20,8 @@ const FOOD_OPTIONS = [
 ];
 
 export default function Game() {
+  const settings = useRef({});
+  const layout = useRef({ gridSize: {}, navPadSize: {}, landscape: false });
   const [grid, setGrid] = useState([]);
   const [snake, setSnake] = useState([{ x: 0, y: 0 }]);
   const [stomach, setStomach] = useState([]);
@@ -26,7 +30,49 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-  const layout = useRef({ gridSize: {}, navPadSize: {}, landscape: false });
+  const [showSettings, setShowSettings] = useState(false);
+
+  // one time mounted stuff here
+  useEffect(() => {
+    // get settings stored in browser memory
+    settings.current = store.get("settings");
+
+    // detect screen size change, adjust grid size based on it, place navpad based on ladscape/portrait mode
+    const headerWidth = 25;
+    function getLayout() {
+      if (window.innerWidth < window.innerHeight) {
+        layout.current = {
+          landscape: false,
+          gridSize: {
+            height: window.innerWidth + headerWidth,
+            width: window.innerWidth,
+          },
+        };
+        layout.current.navPadSize = {
+          height: window.innerHeight - layout.current.gridSize.height,
+          width: layout.current.gridSize.width,
+        };
+      } else {
+        layout.current = {
+          landscape: true,
+          gridSize: {
+            height: window.innerHeight,
+            width: window.innerHeight - headerWidth,
+          },
+        };
+        layout.current.navPadSize = {
+          height: layout.current.gridSize.height,
+          width: window.innerWidth - layout.current.gridSize.width,
+        };
+      }
+    }
+    getLayout(); // initial call
+
+    window.addEventListener("resize", getLayout);
+    return () => {
+      window.removeEventListener("resize", getLayout);
+    };
+  }, []);
 
   const moveSnake = useCallback(
     (_direction) => {
@@ -224,45 +270,6 @@ export default function Game() {
     };
   }, [gameOver]);
 
-  // detect screen size, adjust grid size based on it, place navpad based on ladscape/portrait mode
-  useEffect(() => {
-    const headerWidth = 25;
-    function getLayout() {
-      if (window.innerWidth < window.innerHeight) {
-        layout.current = {
-          landscape: false,
-          gridSize: {
-            height: window.innerWidth + headerWidth,
-            width: window.innerWidth,
-          },
-        };
-        layout.current.navPadSize = {
-          height: window.innerHeight - layout.current.gridSize.height,
-          width: layout.current.gridSize.width,
-        };
-      } else {
-        layout.current = {
-          landscape: true,
-          gridSize: {
-            height: window.innerHeight,
-            width: window.innerHeight - headerWidth,
-          },
-        };
-        layout.current.navPadSize = {
-          height: layout.current.gridSize.height,
-          width: window.innerWidth - layout.current.gridSize.width,
-        };
-      }
-    }
-
-    getLayout(); // initial call
-
-    window.addEventListener("resize", getLayout);
-    return () => {
-      window.removeEventListener("resize", getLayout);
-    };
-  }, []);
-
   function getRandomFood() {
     let x = Math.floor(Math.random() * WIDTH);
     let y = Math.floor(Math.random() * HEIGHT);
@@ -286,6 +293,9 @@ export default function Game() {
     return (
       <div className="game">
         {gameOver && <GameOver score={score} playAgain={reset} />}
+        {showSettings && (
+          <Settings closeSettings={() => setShowSettings(false)} />
+        )}
         <div
           className="main"
           style={{
@@ -294,7 +304,9 @@ export default function Game() {
           }}
         >
           <div className="header">
-            <div className="left">Settings</div>
+            <div className="left" onClick={() => setShowSettings(true)}>
+              Settings
+            </div>
             <div className="center">Candy Snake</div>
             <div className="right">{score}</div>
           </div>
@@ -305,6 +317,7 @@ export default function Game() {
           width={navPadSize.width}
           height={navPadSize.height}
           landscape={landscape}
+          vibration={settings.current.vibration}
         />
       </div>
     );
