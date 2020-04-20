@@ -49,10 +49,10 @@ table.board {
 .board td.food > span {
   border-radius: 50%;
   box-shadow: inset 2px 1px 6px 0px black;
-  -webkit-transition: all 1sease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
+  -webkit-transition: all 1s ease 0s;
+  -moz-transition: all 1s ease 0s;
+  -o-transition: all 1s ease 0s;
+  transition: all 1s ease 0s;
 }
 .board .red > span {
   background: red;
