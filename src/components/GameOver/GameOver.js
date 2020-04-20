@@ -3,15 +3,13 @@ import Modal from "../Modal/Modal";
 import store from "store";
 
 export default function GameOver(props) {
-  const record = useRef(0);
-  const [newRecord, setNewRecord] = useState(false);
+  const record = useRef(store.get("record") || 0); // get user's best score stored in browser memory
+  const [hasNewRecord, setHasNewRecord] = useState(false);
 
   useEffect(() => {
-    // get user's best score stored in browser memory
-    record.current = store.get("record") || 0;
     if (props.score > record.current) {
       store.set("record", props.score);
-      setNewRecord(true);
+      setHasNewRecord(true);
     }
   }, [props.score]);
 
@@ -28,7 +26,7 @@ export default function GameOver(props) {
           <br />
           <strong>{props.score}</strong>
         </h2>
-        {newRecord && (
+        {hasNewRecord && (
           <h4>
             <strong style={{ display: "block" }}>Congratulations!</strong> That
             is a new record
@@ -36,7 +34,7 @@ export default function GameOver(props) {
         )}
         {record.current && record.current > 0 && (
           <h5>
-            {newRecord ? "Old Record" : "Record"}: {record.current}
+            {hasNewRecord ? "Old Record" : "Record"}: {record.current}
           </h5>
         )}
       </Modal>
