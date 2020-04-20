@@ -1,0 +1,69 @@
+table.board {
+  height: calc(100% - 25px);
+  width: 100%;
+  box-shadow: inset 0 0 23px 5px darkslategrey;
+  background: darkolivegreen;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  border-spacing: 0;
+}
+.board td > span {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.board td.snake {
+  background: grey;
+}
+.board td.snake.head {
+  background-image: url("../../assets/snake_head.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
+.board td.snake.head > span {
+  box-shadow: none;
+}
+.board td.snake.head.left {
+  transform: rotate(180deg);
+}
+.board td.snake.head.up {
+  transform: rotate(270deg);
+}
+.board td.snake.head.down {
+  transform: rotate(90deg);
+}
+.board td.snake > span {
+  width: 60%;
+  height: 60%;
+  margin-top: 0%;
+  border-radius: 50%;
+  margin-left: 20%;
+  box-shadow: inset 2px 1px 3px 0px #303030;
+}
+.board td.food {
+  /* border: 1px solid #dfdfdf; */
+}
+.board td.food > span {
+  border-radius: 50%;
+  box-shadow: inset 2px 1px 6px 0px black;
+}
+.board .red > span {
+  background: red;
+}
+.board .green > span {
+  background: green;
+}
+.board .blue > span {
+  background: blue;
+}
+.board .gold > span {
+  background: gold;
+}
+.board .black > span {
+  background: black;
+}
+.board .orange > span {
+  background: orange;
+}

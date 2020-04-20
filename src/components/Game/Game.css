@@ -1,0 +1,32 @@
+.game {
+  background: grey;
+}
+.main {
+  margin: auto;
+}
+.header {
+  display: flex;
+  padding: 0px 10px;
+  height: 25px;
+  background: black;
+  color: white;
+}
+.header .right {
+  width: 100%;
+  text-align: right;
+}
+.header .center {
+  width: 100%;
+  text-align: center;
+}
+.header .left {
+  width: 100%;
+  text-align: left;
+}
+
+/*** Mobile - Landscape ***/
+@media only screen and (min-device-width: 481px) and (max-device-width: 992px) and (orientation: landscape) {
+  .main {
+    float: left;
+  }
+}

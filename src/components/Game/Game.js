@@ -1,5 +1,8 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./Game.css";
+import { Board } from './../Board/Board';
+import { NavPad } from './../NavPad/NavPad';
+
 
 const WIDTH = 12;
 const HEIGHT = 12;
@@ -238,18 +241,23 @@ export default function Game() {
     setGameOver(false);
   }
 
-  let navPadSize = Math.abs(window.innerWidth - window.innerHeight) + "px";
-  let gridSize;
-  if (window.innerWidth < window.innerHeight) {
-    gridSize = window.innerWidth + "px";
-  } else {
-    gridSize = window.innerHeight + "px";
+  let landscape = false;
+  let gridSize = window.innerWidth;
+  let navPadSize = { height: window.innerHeight - gridSize, width: gridSize };
+  if (window.innerWidth > window.innerHeight) {
+    landscape = true;
+    gridSize = window.innerHeight;
+    navPadSize = { height: gridSize, width: window.innerWidth - gridSize };
   }
+
   return (
     <div className="game">
       {/* <Modal> */}
 
-      <div className="main" style={{ width: gridSize, height: gridSize }}>
+      <div
+        className="main"
+        style={{ width: gridSize + "px", height: gridSize + "px" }}
+      >
         <div className="header">
           <div className="left">
             {gameOver && (
@@ -263,63 +271,12 @@ export default function Game() {
         </div>
         <Board grid={grid} />
       </div>
-      <NavPad onClick={changeDirection} size={navPadSize} />
+      <NavPad
+        onClick={changeDirection}
+        width={navPadSize.width}
+        height={navPadSize.height}
+        landscape={landscape}
+      />
     </div>
   );
 }
-
-// Use memo, so that render will happen once per props change (grid)
-const Board = React.memo((props) => {
-  function render() {
-    return (
-      <table>
-        <tbody>
-          {props.grid.map((row, rowIndex) => {
-            return (
-              <tr key={rowIndex}>
-                {row.map((column, colIndex) => {
-                  return (
-                    <td key={colIndex} className={column}>
-                      <span />
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    );
-  }
-  return render();
-});
-
-// Controller pad to be used in mobile devices
-const NavPad = React.memo((props) => {
-  function onClick(_direction) {
-    window.navigator.vibrate(10);
-    props.onClick(_direction);
-  }
-
-  function render() {
-    return (
-      <div className="navpad" style={{ width: props.size, height: props.size }}>
-        <div className="inner">
-          <button className="up" onClick={() => onClick("up")}>
-            <span></span>
-          </button>
-          <button className="right" onClick={() => onClick("right")}>
-            <span></span>
-          </button>
-          <button className="left" onClick={() => onClick("left")}>
-            <span></span>
-          </button>
-          <button className="down" onClick={() => onClick("down")}>
-            <span></span>
-          </button>
-        </div>
-      </div>
-    );
-  }
-  return render();
-});

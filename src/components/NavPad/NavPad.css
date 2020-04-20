@@ -1,0 +1,79 @@
+.navpad {
+  display: none;
+  overflow: hidden;
+  position: relative;
+  background-clip: content-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.navpad .inner {
+  vertical-align: middle;
+}
+.navpad .buttons {
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  margin: 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px 0px black;
+  border: 1px solid #505050;
+}
+.navpad .buttons > button {
+  float: left;
+  background: #4c4c4c;
+  width: 50%;
+  height: 50%;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  border: none;
+  outline: none !important;
+}
+.navpad .buttons > button:active {
+  background: #404040;
+}
+.navpad .buttons > button > span {
+  width: 15%;
+  height: 15%;
+  position: absolute;
+}
+.navpad .buttons > button.up > span {
+  border-left: 1px solid #2f2f2f;
+  border-top: 1px solid #2f2f2f;
+  bottom: 40%;
+  right: 40%;
+}
+.navpad .buttons > button.down > span {
+  border-right: 1px solid #2f2f2f;
+  border-bottom: 1px solid #2f2f2f;
+  bottom: 40%;
+  right: 40%;
+}
+.navpad .buttons > button.left > span {
+  border-left: 1px solid #2f2f2f;
+  border-bottom: 1px solid #2f2f2f;
+  bottom: 40%;
+  right: 40%;
+}
+.navpad .buttons > button.right > span {
+  border-right: 1px solid #2f2f2f;
+  border-top: 1px solid #2f2f2f;
+  bottom: 40%;
+  right: 40%;
+}
+
+/*** Mobile - Portrait ***/
+@media only screen and (max-width: 480px) {
+  .navpad {
+    display: flex;
+  }
+}
+
+/*** Mobile - Landscape ***/
+@media only screen and (min-device-width: 481px) and (max-device-width: 992px) and (orientation: landscape) {
+  .navpad {
+    display: flex;
+  }
+}
