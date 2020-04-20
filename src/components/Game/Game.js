@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import "./Game.css";
 import { Board } from "./../Board/Board";
 import { NavPad } from "./../NavPad/NavPad";
@@ -26,6 +26,7 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
   const [gameOver, setGameOver] = useState(false);
+  const layout = useRef({ gridSize: {}, navPadSize: {}, landscape: false });
 
   const moveSnake = useCallback(
     (_direction) => {
@@ -223,6 +224,45 @@ export default function Game() {
     };
   }, [gameOver]);
 
+  // detect screen size, adjust grid size based on it, place navpad based on ladscape/portrait mode
+  useEffect(() => {
+    function getLayout() {
+      const headerWidth = 25;
+      if (window.innerWidth < window.innerHeight) {
+        layout.current = {
+          landscape: false,
+          gridSize: {
+            height: window.innerWidth + headerWidth,
+            width: window.innerWidth,
+          },
+        };
+        layout.current.navPadSize = {
+          height: window.innerHeight - layout.current.gridSize.height,
+          width: layout.current.gridSize.width,
+        };
+      } else {
+        layout.current = {
+          landscape: true,
+          gridSize: {
+            height: window.innerHeight,
+            width: window.innerHeight - headerWidth,
+          },
+        };
+        layout.current.navPadSize = {
+          height: layout.current.gridSize.height,
+          width: window.innerWidth - layout.current.gridSize.width,
+        };
+      }
+    }
+
+    getLayout(); // initial call
+
+    window.addEventListener("resize", getLayout);
+    return () => {
+      window.removeEventListener("resize", getLayout);
+    };
+  }, []);
+
   function getRandomFood() {
     let x = Math.floor(Math.random() * WIDTH);
     let y = Math.floor(Math.random() * HEIGHT);
@@ -241,35 +281,33 @@ export default function Game() {
     setGameOver(false);
   }
 
-  let landscape = false;
-  let gridSize = window.innerWidth;
-  let navPadSize = { height: window.innerHeight - gridSize, width: gridSize };
-  if (window.innerWidth > window.innerHeight) {
-    landscape = true;
-    gridSize = window.innerHeight;
-    navPadSize = { height: gridSize, width: window.innerWidth - gridSize };
-  }
-
-  return (
-    <div className="game">
-      {gameOver && <GameOver score={score} playAgain={reset} />}
-      <div
-        className="main"
-        style={{ width: gridSize + "px", height: gridSize + "px" }}
-      >
-        <div className="header">
-          <div className="left">Settings</div>
-          <div className="center">Candy Snake</div>
-          <div className="right">{score}</div>
+  function render() {
+    const { gridSize, landscape, navPadSize } = layout.current;
+    return (
+      <div className="game">
+        {gameOver && <GameOver score={score} playAgain={reset} />}
+        <div
+          className="main"
+          style={{
+            width: gridSize.width + "px",
+            height: gridSize.height + "px",
+          }}
+        >
+          <div className="header">
+            <div className="left">Settings</div>
+            <div className="center">Candy Snake</div>
+            <div className="right">{score}</div>
+          </div>
+          <Board grid={grid} />
         </div>
-        <Board grid={grid} />
+        <NavPad
+          onClick={changeDirection}
+          width={navPadSize.width}
+          height={navPadSize.height}
+          landscape={landscape}
+        />
       </div>
-      <NavPad
-        onClick={changeDirection}
-        width={navPadSize.width}
-        height={navPadSize.height}
-        landscape={landscape}
-      />
-    </div>
-  );
+    );
+  }
+  return render();
 }
