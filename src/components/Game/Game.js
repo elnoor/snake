@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "./Game.css";
-import { Board } from './../Board/Board';
-import { NavPad } from './../NavPad/NavPad';
-
+import { Board } from "./../Board/Board";
+import { NavPad } from "./../NavPad/NavPad";
+import GameOver from "./../GameOver/GameOver";
 
 const WIDTH = 12;
 const HEIGHT = 12;
@@ -136,6 +136,7 @@ export default function Game() {
   const changeDirection = useCallback(
     (_direction) => {
       if (
+        !gameOver &&
         _direction &&
         // not same direction
         _direction !== direction &&
@@ -153,7 +154,7 @@ export default function Game() {
         });
       }
     },
-    [moveSnake, direction]
+    [moveSnake, direction, gameOver]
   );
 
   // move snake in a direction continiously or with user input
@@ -224,7 +225,6 @@ export default function Game() {
 
   function getRandomFood() {
     let x = Math.floor(Math.random() * WIDTH);
-
     let y = Math.floor(Math.random() * HEIGHT);
 
     const foodOption =
@@ -252,20 +252,13 @@ export default function Game() {
 
   return (
     <div className="game">
-      {/* <Modal> */}
-
+      {gameOver && <GameOver score={score} playAgain={reset} />}
       <div
         className="main"
         style={{ width: gridSize + "px", height: gridSize + "px" }}
       >
         <div className="header">
-          <div className="left">
-            {gameOver && (
-              <span className="left">
-                Game Over! <u onClick={reset}>Play Again</u>
-              </span>
-            )}
-          </div>
+          <div className="left">Settings</div>
           <div className="center">Candy Snake</div>
           <div className="right">{score}</div>
         </div>
