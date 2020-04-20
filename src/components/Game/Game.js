@@ -36,7 +36,6 @@ export default function Game() {
   useEffect(() => {
     // get settings stored in browser memory
     settings.current = store.get("settings") || {};
-    debugger;
 
     // detect screen size change, adjust grid size based on it, place navpad based on ladscape/portrait mode
     const headerWidth = 25;
@@ -321,7 +320,7 @@ export default function Game() {
           width={navPadSize.width}
           height={navPadSize.height}
           landscape={landscape}
-          vibration={settings.current && settings.current.vibration}
+          vibration={settings.current.vibration}
         />
       </div>
     );
