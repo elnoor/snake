@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../Modal/Modal";
 import "./Settings.css";
 import store from "store";
 
 export default function Settings(props) {
   const [settings, setSettings] = useState({ vibration: false });
+
+  useEffect(() => {
+    setSettings((prevSettings) => {
+      return { ...prevSettings, ...props.settings };
+    });
+  }, [props.settings]);
 
   function onChange(e) {
     const { name, value, checked, type } = e.target;

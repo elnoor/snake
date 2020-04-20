@@ -35,7 +35,8 @@ export default function Game() {
   // one time mounted stuff here
   useEffect(() => {
     // get settings stored in browser memory
-    settings.current = store.get("settings");
+    settings.current = store.get("settings") || {};
+    debugger;
 
     // detect screen size change, adjust grid size based on it, place navpad based on ladscape/portrait mode
     const headerWidth = 25;
@@ -294,7 +295,10 @@ export default function Game() {
       <div className="game">
         {gameOver && <GameOver score={score} playAgain={reset} />}
         {showSettings && (
-          <Settings closeSettings={() => setShowSettings(false)} />
+          <Settings
+            settings={settings.current}
+            closeSettings={() => setShowSettings(false)}
+          />
         )}
         <div
           className="main"
@@ -317,7 +321,7 @@ export default function Game() {
           width={navPadSize.width}
           height={navPadSize.height}
           landscape={landscape}
-          vibration={settings.current.vibration}
+          vibration={settings.current && settings.current.vibration}
         />
       </div>
     );
