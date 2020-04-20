@@ -226,8 +226,8 @@ export default function Game() {
 
   // detect screen size, adjust grid size based on it, place navpad based on ladscape/portrait mode
   useEffect(() => {
+    const headerWidth = 25;
     function getLayout() {
-      const headerWidth = 25;
       if (window.innerWidth < window.innerHeight) {
         layout.current = {
           landscape: false,

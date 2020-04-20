@@ -1,5 +1,5 @@
 table.board {
-  height: calc(100% - 25px);
+  height: calc(100% - 25px); /* 25px goes to header */
   width: 100%;
   box-shadow: inset 0 0 23px 5px darkslategrey;
   background: darkolivegreen;
