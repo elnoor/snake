@@ -44,10 +44,15 @@ table.board {
 }
 .board td.food {
   /* border: 1px solid #dfdfdf; */
+  
 }
 .board td.food > span {
   border-radius: 50%;
   box-shadow: inset 2px 1px 6px 0px black;
+  -webkit-transition: all 1sease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 .board .red > span {
   background: red;
