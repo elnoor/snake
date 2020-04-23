@@ -1,12 +1,13 @@
 table.board {
   height: calc(100% - 50px); /* 50px goes to header */
-  width: 100%;
+  width: calc(100% + 1px);
   background: #f5f2f1;
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
   border-spacing: 0;
   border-collapse: collapse;
+  
 }
 .board td {
   border: 1px solid #e9ece8;
@@ -29,7 +30,7 @@ table.board {
   background: #bdbebd;
 }
 .board td.snake.head > div {
-  background-image: url("../../assets/snake_head.png");
+  background-image: url("../../assets/img/snake_head.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-color: transparent;
@@ -72,4 +73,16 @@ table.board {
 }
 .board .orange span {
   background: orange;
+}
+
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
 }

@@ -1,13 +1,26 @@
+@font-face {
+  font-family: "ITC Avant Garde Std Md";
+  src: url("./assets/fonts/ITCAvantGardeStd-Bold.eot");
+  src: local("ITC Avant Garde Gothic Std Bold"), local("ITCAvantGardeStd-Bold"),
+    url("./assets/fonts/ITCAvantGardeStd-Bold.eot?#iefix") format("embedded-opentype"),
+    url("./assets/fonts/ITCAvantGardeStd-Bold.woff2") format("woff2"),
+    url("./assets/fonts/ITCAvantGardeStd-Bold.woff") format("woff"),
+    url("./assets/fonts/ITCAvantGardeStd-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background: #8fcdd6;
+  font-family: "ITC Avant Garde Std Md", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }

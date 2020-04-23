@@ -1,19 +1,22 @@
-body {
-  background: #8fcdd6;
-}
 .game {
   padding: 25px;
 }
 .main {
   margin: auto;
   overflow: hidden;
+  border-radius: 8px;
 }
 .header {
   display: flex;
-  padding: 0px 10px;
+  padding: 0px 12px;
   height: 50px;
+  max-height: 50px;
   background: white;
-  color: white;
+  color: #bebebe;
+  font-size: 14px;
+}
+.header > div {
+  margin-top: 15px;
 }
 .header .right {
   width: 100%;
