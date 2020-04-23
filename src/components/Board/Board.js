@@ -13,7 +13,7 @@ export const Board = React.memo((props) => {
                 {row.map((column, colIndex) => {
                   return (
                     <td key={colIndex} className={column}>
-                      <span />
+                      <div><span /></div>
                     </td>
                   );
                 })}

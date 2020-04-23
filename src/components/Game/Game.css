@@ -1,14 +1,18 @@
+body {
+  background: #8fcdd6;
+}
 .game {
-  background: grey;
+  padding: 25px;
 }
 .main {
   margin: auto;
+  overflow: hidden;
 }
 .header {
   display: flex;
   padding: 0px 10px;
-  height: 25px;
-  background: black;
+  height: 50px;
+  background: white;
   color: white;
 }
 .header .right {

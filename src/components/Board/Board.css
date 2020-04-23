@@ -1,74 +1,75 @@
 table.board {
-  height: calc(100% - 25px); /* 25px goes to header */
+  height: calc(100% - 50px); /* 50px goes to header */
   width: 100%;
-  box-shadow: inset 0 0 23px 5px darkslategrey;
-  background: darkolivegreen;
+  background: #f5f2f1;
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
   border-spacing: 0;
+  border-collapse: collapse;
 }
-.board td > span {
+.board td {
+  border: 1px solid #e9ece8;
+}
+.board td > div {
+  width: 96%;
+  height: 96%;
+  margin: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  position: relative;
+}
+.board td > div > span {
   width: 100%;
   height: 100%;
   display: block;
 }
-.board td.snake {
-  background: grey;
+.board td.snake > div {
+  background: #bdbebd;
 }
-.board td.snake.head {
+.board td.snake.head > div {
   background-image: url("../../assets/snake_head.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-color: transparent;
 }
-.board td.snake.head > span {
-  box-shadow: none;
-}
-.board td.snake.head.left {
+.board td.snake.head.left > div {
   transform: rotate(180deg);
 }
-.board td.snake.head.up {
+.board td.snake.head.up > div {
   transform: rotate(270deg);
 }
-.board td.snake.head.down {
+.board td.snake.head.down > div {
   transform: rotate(90deg);
 }
-.board td.snake > span {
+.board td.snake > div > span {
   width: 60%;
   height: 60%;
-  margin-top: 0%;
+  margin: auto;
   border-radius: 50%;
-  margin-left: 20%;
-  box-shadow: inset 2px 1px 3px 0px #303030;
 }
-.board td.food {
-  /* border: 1px solid #dfdfdf; */
-  
-}
-.board td.food > span {
-  border-radius: 50%;
-  box-shadow: inset 2px 1px 6px 0px black;
+.board td.food > div > span {
   -webkit-transition: all 1s ease 0s;
   -moz-transition: all 1s ease 0s;
   -o-transition: all 1s ease 0s;
   transition: all 1s ease 0s;
 }
-.board .red > span {
+.board .red span {
   background: red;
 }
-.board .green > span {
+.board .green span {
   background: green;
 }
-.board .blue > span {
+.board .blue span {
   background: blue;
 }
-.board .gold > span {
+.board .gold span {
   background: gold;
 }
-.board .black > span {
+.board .black span {
   background: black;
 }
-.board .orange > span {
+.board .orange span {
   background: orange;
 }

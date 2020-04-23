@@ -38,31 +38,34 @@ export default function Game() {
     settings.current = store.get("settings") || {};
 
     // detect screen size change, adjust grid size based on it, place navpad based on ladscape/portrait mode
-    const headerWidth = 25;
+    const headerheight = 50;
+    const innerPadding = 25;
+    const innerHeight = window.innerHeight - innerPadding*2;
+    const innerWidth = window.innerWidth - innerPadding*2;
     function getLayout() {
-      if (window.innerWidth < window.innerHeight) {
+      if (innerWidth < innerHeight) {
         layout.current = {
           landscape: false,
           gridSize: {
-            height: window.innerWidth + headerWidth,
-            width: window.innerWidth,
+            height: innerWidth + headerheight,
+            width: innerWidth,
           },
         };
         layout.current.navPadSize = {
-          height: window.innerHeight - layout.current.gridSize.height,
+          height: innerHeight - layout.current.gridSize.height,
           width: layout.current.gridSize.width,
         };
       } else {
         layout.current = {
           landscape: true,
           gridSize: {
-            height: window.innerHeight,
-            width: window.innerHeight - headerWidth,
+            height: innerHeight,
+            width: innerHeight - headerheight,
           },
         };
         layout.current.navPadSize = {
           height: layout.current.gridSize.height,
-          width: window.innerWidth - layout.current.gridSize.width,
+          width: innerWidth - layout.current.gridSize.width,
         };
       }
     }
