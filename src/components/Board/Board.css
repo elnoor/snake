@@ -57,22 +57,22 @@ table.board {
   transition: all 1s ease 0s;
 }
 .board .red span {
-  background: red;
+  background: #FF3F94;
 }
 .board .green span {
-  background: green;
+  background: #22A900;
 }
 .board .blue span {
-  background: blue;
+  background: #00C8FF;
 }
 .board .gold span {
-  background: gold;
+  background: #ffd759;
 }
 .board .black span {
-  background: black;
+  background: #8e8e8e;
 }
 .board .orange span {
-  background: orange;
+  background: #FF7C00;
 }
 
 

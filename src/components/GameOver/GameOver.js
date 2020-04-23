@@ -25,12 +25,11 @@ export default function GameOver(props) {
         <div className="game-over">
           <h3>YOUR SCORE</h3>
           <h1>{props.score}</h1>
-          {/* {hasNewRecord && ( */}
+          {hasNewRecord && (
             <h4>
-              <p>Congratulations!</p> New
-              record!
+              <p>Congratulations!</p> New record!
             </h4>
-          {/* )} */}
+          )}
           {record.current && record.current > 0 && (
             <h5>
               {hasNewRecord ? "your old record" : "your record"}:{" "}
