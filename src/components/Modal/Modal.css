@@ -30,6 +30,7 @@
   font-size: 1.4rem;
   text-align: center;
   line-height: 52px;
+  text-transform: capitalize;
 }
 .modal-body {
   /* min-height: calc(100% - 30px - 50px); */
@@ -45,7 +46,8 @@
   color: white;
   float: right;
   font-size: 1.4rem;
-  line-height: 52px;
+  line-height: 52px;  
+  text-transform: capitalize;
 }
 .modal-footer:hover {
   cursor: pointer;

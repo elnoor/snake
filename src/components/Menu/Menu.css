@@ -10,11 +10,53 @@
 .dots:hover > div {
   background: #bebebe;
 }
-
 .dots > div {
   width: 4px;
   height: 4px;
   margin-right: 2px;
   border-radius: 50%;
   border: 2px solid #bebebe;
+}
+
+.menu-wrapper {
+  display: inline;
+}
+
+ul.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 20px 5px;
+  font-size: 1.5rem;
+}
+ul.menu li {
+  padding: 3px 0;
+}
+ul.menu li span:hover {
+  color: #dcdcdc;
+  cursor: pointer;
+}
+
+.settings {
+  padding: 15px;
+  font-size: 1.3rem;
+}
+.settings h4 {
+  background: #ecedec;
+  margin: 0 -15px 10px -15px;
+}
+.settings input[type="checkbox"] {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+.settings ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flow-root;
+}
+.settings li span:first-child {
+  float: left;
+}
+.settings li span:last-child {
+  float: right;
 }

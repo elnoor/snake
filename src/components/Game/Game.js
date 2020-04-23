@@ -3,7 +3,6 @@ import "./Game.css";
 import { Board } from "./../Board/Board";
 import { NavPad } from "./../NavPad/NavPad";
 import GameOver from "./../GameOver/GameOver";
-import Settings from "./../Settings/Settings";
 import store from "store";
 import Menu from "../Menu/Menu";
 
@@ -31,7 +30,6 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
 
   // one time mounted stuff here
   useEffect(() => {
@@ -297,12 +295,6 @@ export default function Game() {
     return (
       <div className="game">
         {gameOver && <GameOver score={score} playAgain={reset} />}
-        {showSettings && (
-          <Settings
-            settings={settings.current}
-            closeSettings={() => setShowSettings(false)}
-          />
-        )}
         <div
           className="main"
           style={{
@@ -311,8 +303,8 @@ export default function Game() {
           }}
         >
           <div className="header">
-            <div className="left" onClick={() => setShowSettings(true)}>
-              <Menu />
+            <div className="left">
+              <Menu settings={settings.current} />
             </div>
             <div className="center">Candy Snake</div>
             <div className="right">{score}</div>
