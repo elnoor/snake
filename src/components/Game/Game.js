@@ -5,6 +5,7 @@ import { NavPad } from "./../NavPad/NavPad";
 import GameOver from "./../GameOver/GameOver";
 import Settings from "./../Settings/Settings";
 import store from "store";
+import Menu from "../Menu/Menu";
 
 const WIDTH = 12;
 const HEIGHT = 12;
@@ -40,8 +41,8 @@ export default function Game() {
     // detect screen size change, adjust grid size based on it, place navpad based on ladscape/portrait mode
     const headerheight = 50;
     const innerPadding = 25;
-    const innerHeight = window.innerHeight - innerPadding*2;
-    const innerWidth = window.innerWidth - innerPadding*2;
+    const innerHeight = window.innerHeight - innerPadding * 2;
+    const innerWidth = window.innerWidth - innerPadding * 2;
     function getLayout() {
       if (innerWidth < innerHeight) {
         layout.current = {
@@ -311,7 +312,7 @@ export default function Game() {
         >
           <div className="header">
             <div className="left" onClick={() => setShowSettings(true)}>
-              Settings
+              <Menu />
             </div>
             <div className="center">Candy Snake</div>
             <div className="right">{score}</div>

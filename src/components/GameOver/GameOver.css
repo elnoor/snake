@@ -1,0 +1,10 @@
+.game-over h1 {
+  font-size: 3.5rem;
+  margin: 0;
+}
+.game-over h4 {
+  color: #63bb57;
+}
+.game-over h4 p {
+  margin: 0;
+}

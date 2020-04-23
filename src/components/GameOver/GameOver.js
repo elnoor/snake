@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import Modal from "../Modal/Modal";
+import "./GameOver.css";
 import store from "store";
 
 export default function GameOver(props) {
@@ -17,26 +18,26 @@ export default function GameOver(props) {
     return (
       <Modal
         open={true}
-        header="Game Over"
-        footer="Play Again"
+        header="GAME OVER"
+        footer="PLAY AGAIN"
         onFooterClick={props.playAgain}
       >
-        <h2>
-          <small>Your Score</small>
-          <br />
-          <strong>{props.score}</strong>
-        </h2>
-        {hasNewRecord && (
-          <h4>
-            <strong style={{ display: "block" }}>Congratulations!</strong> That
-            is a new record
-          </h4>
-        )}
-        {record.current && record.current > 0 && (
-          <h5>
-            {hasNewRecord ? "Old Record" : "Record"}: {record.current}
-          </h5>
-        )}
+        <div className="game-over">
+          <h3>YOUR SCORE</h3>
+          <h1>{props.score}</h1>
+          {/* {hasNewRecord && ( */}
+            <h4>
+              <p>Congratulations!</p> New
+              record!
+            </h4>
+          {/* )} */}
+          {record.current && record.current > 0 && (
+            <h5>
+              {hasNewRecord ? "your old record" : "your record"}:{" "}
+              {record.current}
+            </h5>
+          )}
+        </div>
       </Modal>
     );
   }
