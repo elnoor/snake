@@ -3,7 +3,6 @@ import "./Menu.css";
 import Modal from "../Modal/Modal";
 import store from "store";
 import { menuOptions, themes } from "../../constants/enums";
-import { languages } from "../../constants/enums";
 
 export default function (props) {
   const [showMenu, setShowMenu] = useState(false);
@@ -67,7 +66,6 @@ function Settings(props) {
   const [settings, setSettings] = useState({
     vibration: false,
     showGridBorder: true,
-    language: languages.eng,
     theme: themes.candySnake,
   });
 
@@ -125,21 +123,6 @@ function Settings(props) {
                 {Object.values(themes).map((theme) => (
                   <option key={theme.key} value={theme.key}>
                     {theme.value}
-                  </option>
-                ))}
-              </select>
-            </li>
-            <li className="d-flex">
-              <span className="w-100 text-left">Language</span>
-              <select
-                name="language"
-                value={settings.language}
-                onChange={onChange}
-                className="float-right"
-              >
-                {Object.keys(languages).map((key) => (
-                  <option key={key} value={languages[key]}>
-                    {languages[key]}
                   </option>
                 ))}
               </select>

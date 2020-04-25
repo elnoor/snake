@@ -4,11 +4,6 @@ export const menuOptions = {
   about: "About",
 };
 
-export const languages = {
-  eng: "English",
-  aze: "Azerbaijani",
-};
-
 export const themes = {
   candySnake: { key: "candySnake", value: "Candy Snake" },
   colorSnake: { key: "colorSnake", value: "Color Snake" },
