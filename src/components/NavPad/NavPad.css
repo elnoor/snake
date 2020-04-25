@@ -17,12 +17,10 @@
   border-radius: 50%;
   overflow: hidden;
   transform: rotate(45deg);
-  box-shadow: 0 0 10px 0px black;
-  border: 1px solid #505050;
 }
 .navpad .buttons > button {
   float: left;
-  background: #4c4c4c;
+  background: #6db3bd;
   width: 50%;
   height: 50%;
   padding: 0;
@@ -32,7 +30,7 @@
   outline: none !important;
 }
 .navpad .buttons > button:active {
-  background: #404040;
+  background: #55a0ab;
 }
 .navpad .buttons > button > span {
   width: 15%;
@@ -40,26 +38,26 @@
   position: absolute;
 }
 .navpad .buttons > button.up > span {
-  border-left: 1px solid #2f2f2f;
-  border-top: 1px solid #2f2f2f;
+  border-left: 1px solid #1a7a88;
+  border-top: 1px solid #1a7a88;
   bottom: 40%;
   right: 40%;
 }
 .navpad .buttons > button.down > span {
-  border-right: 1px solid #2f2f2f;
-  border-bottom: 1px solid #2f2f2f;
+  border-right: 1px solid #1a7a88;
+  border-bottom: 1px solid #1a7a88;
   bottom: 40%;
   right: 40%;
 }
 .navpad .buttons > button.left > span {
-  border-left: 1px solid #2f2f2f;
-  border-bottom: 1px solid #2f2f2f;
+  border-left: 1px solid #1a7a88;
+  border-bottom: 1px solid #1a7a88;
   bottom: 40%;
   right: 40%;
 }
 .navpad .buttons > button.right > span {
-  border-right: 1px solid #2f2f2f;
-  border-top: 1px solid #2f2f2f;
+  border-right: 1px solid #1a7a88;
+  border-top: 1px solid #1a7a88;
   bottom: 40%;
   right: 40%;
 }

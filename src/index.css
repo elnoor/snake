@@ -126,3 +126,15 @@ select {
 .text-left {
   text-align: left;
 }
+
+
+.shine{
+  background-image: linear-gradient( to right, transparent 33%, rgba(255,255,255,0.3) 50%, transparent 66% );
+  background-size: 1000% 1%;
+  animation: shine 2s infinite;
+}
+@keyframes shine {
+  0% {
+    background-position: right;    
+  }
+}
