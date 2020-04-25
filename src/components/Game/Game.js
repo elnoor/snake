@@ -30,7 +30,7 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-
+  
   // one time mounted stuff here
   useEffect(() => {
     // get settings stored in browser memory
@@ -293,7 +293,11 @@ export default function Game() {
   function render() {
     const { gridSize, landscape, navPadSize } = layout.current;
     return (
-      <div className="game">
+      <div
+        className={
+          "game " + (settings.current.theme ? settings.current.theme.key : "")
+        }
+      >
         {gameOver && <GameOver score={score} playAgain={reset} />}
         <div
           className="main"
@@ -309,7 +313,10 @@ export default function Game() {
             <div className="center">Candy Snake</div>
             <div className="right">{score}</div>
           </div>
-          <Board grid={grid} />
+          <Board
+            grid={grid}
+            showGridBorder={settings.current.showGridBorder}
+          />
         </div>
         <NavPad
           onClick={changeDirection}

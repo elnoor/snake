@@ -2,7 +2,8 @@
   font-family: "ITC Avant Garde Std Md";
   src: url("./assets/fonts/ITCAvantGardeStd-Bold.eot");
   src: local("ITC Avant Garde Gothic Std Bold"), local("ITCAvantGardeStd-Bold"),
-    url("./assets/fonts/ITCAvantGardeStd-Bold.eot?#iefix") format("embedded-opentype"),
+    url("./assets/fonts/ITCAvantGardeStd-Bold.eot?#iefix")
+      format("embedded-opentype"),
     url("./assets/fonts/ITCAvantGardeStd-Bold.woff2") format("woff2"),
     url("./assets/fonts/ITCAvantGardeStd-Bold.woff") format("woff"),
     url("./assets/fonts/ITCAvantGardeStd-Bold.ttf") format("truetype");
@@ -23,4 +24,105 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+select {
+  border: 2px solid #bdbebd;
+  border-radius: 3px;
+  color: #bdbebd;
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none !important;
+}
+
+.checkbox {
+  display: block;
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* CHECKBOX START */
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border: 2px solid #bdbebd;
+  border-radius: 3px;
+}
+.checkbox:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+.checkbox input:checked ~ .checkmark {
+  background-color: #bdbebd;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+.checkbox .checkmark:after {
+  left: 7px;
+  top: 1px;
+  width: 5px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+/* CHECKBOX END */
+
+.d-flex {
+  display: flex;
+}
+.d-block {
+  display: flex;
+}
+.w-100 {
+  width: 100%;
+}
+.w-50 {
+  width: 50%;
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.margin-0 {
+  margin: 0;
+}
+.padding-0 {
+  padding: 0;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
 }

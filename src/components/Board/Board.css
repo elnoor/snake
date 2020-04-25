@@ -7,10 +7,12 @@ table.board {
   margin-right: auto;
   border-spacing: 0;
   border-collapse: collapse;
-  
 }
 .board td {
   border: 1px solid #e9ece8;
+}
+.board.borderless td {
+  border: none;
 }
 .board td > div {
   width: 96%;
@@ -57,24 +59,94 @@ table.board {
   transition: all 1s ease 0s;
 }
 .board .red span {
-  background: #FF3F94;
+  background: #ff3f94;
 }
 .board .green span {
-  background: #22A900;
+  background: #22a900;
 }
 .board .blue span {
-  background: #00C8FF;
+  background: #00c8ff;
 }
 .board .gold span {
   background: #ffd759;
 }
+.board .orange span {
+  background: #ff7c00;
+}
 .board .black span {
   background: #8e8e8e;
 }
-.board .orange span {
-  background: #FF7C00;
+
+/*THEME - deSnaker - START*/
+.board td.snake > div {
+  background: #bdbebd;
+}
+.deSnaker .board td.snake.head > div {
+  background-color: #bdbebd;
+  background-image: none;
+}
+.deSnaker .board td.snake.head > div > span {
+  background-image: url("../../assets/img/deSnaker_snake_head.png");
+  background-size: contain;
+  border-radius: 0;
+  background-repeat: no-repeat;
+  background-position-x: 3px;
 }
 
+.deSnaker .board td.food {
+  background: white !important;
+}
+.deSnaker .board td.food > div {
+  border-radius: 0;
+  position: relative;
+}
+.deSnaker .board td.food > div > span {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  background: url("../../assets/img/deSnaker_icons.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: none !important;
+}
+.deSnaker .board .red span {
+  background-position: 31% 25% !important;
+  top: -11%;
+  left: 34%;
+  width: 41% !important;
+}
+.deSnaker .board .green span {
+  background-position: 66% 25% !important;
+  top: -8%;
+  left: 24%;
+  width: 56% !important;
+}
+.deSnaker .board .blue span {
+  background-position: -22% 25% !important;
+  top: -11%;
+  left: -23%;
+}
+.deSnaker .board .gold span {
+  background-position: 46% 25% !important;
+  top: -12%;
+  left: 23%;
+  width: 56% !important;
+}
+.deSnaker .board .orange span {
+  background-position: 15% 25% !important;
+  top: -11%;
+  left: 24%;
+  width: 47% !important;
+}
+.deSnaker .board .black span {
+  background-position: 82% 25% !important;
+  top: -24%;
+  left: 26%;
+  width: 47% !important;
+}
+
+/* THEME - deSnaker - END */
 
 @keyframes zoomIn {
   from {

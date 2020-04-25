@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./Menu.css";
 import Modal from "../Modal/Modal";
 import store from "store";
+import { menuOptions, themes } from "../../constants/enums";
+import { languages } from "../../constants/enums";
 
-const menuOptions = {
-  settings: "Settings",
-  topScorers: "Top Scorers",
-  about: "About",
-};
 export default function (props) {
   const [showMenu, setShowMenu] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -67,7 +64,12 @@ export default function (props) {
 }
 
 function Settings(props) {
-  const [settings, setSettings] = useState({ vibration: false });
+  const [settings, setSettings] = useState({
+    vibration: false,
+    showGridBorder: true,
+    language: languages.eng,
+    theme: themes.candySnake,
+  });
 
   useEffect(() => {
     setSettings((prevSettings) => {
@@ -76,10 +78,16 @@ function Settings(props) {
   }, [props.settings]);
 
   function onChange(e) {
-    const { name, value, checked, type } = e.target;
+    let { name, value, checked, type } = e.target;
     const _settings = { ...settings };
+
     if (type === "checkbox") {
       _settings[name] = checked;
+    } else if (type === "select-one") {
+      if (name === "theme") {
+        value = themes[value];
+      }
+      _settings[name] = value;
     }
     setSettings(_settings);
   }
@@ -95,30 +103,76 @@ function Settings(props) {
         header="SETTINGS"
         footer={
           <div>
-            <div
-              style={{ width: "50%", float: "right" }}
-              onClick={props.onBack}
-            >
+            <div className="float-right w-50" onClick={props.onBack}>
               BACK
             </div>
-            <div style={{ width: "50%", float: "left" }} onClick={apply}>
+            <div className="float-left w-50" onClick={apply}>
               APPLY
             </div>
           </div>
         }
       >
         <div className="settings">
+          <ul>
+            <li className="d-flex">
+              <span className="w-100 text-left">Theme</span>
+              <select
+                name="theme"
+                value={settings.theme.key}
+                onChange={onChange}
+                className="float-right"
+              >
+                {Object.values(themes).map((theme) => (
+                  <option key={theme.key} value={theme.key}>
+                    {theme.value}
+                  </option>
+                ))}
+              </select>
+            </li>
+            <li className="d-flex">
+              <span className="w-100 text-left">Language</span>
+              <select
+                name="language"
+                value={settings.language}
+                onChange={onChange}
+                className="float-right"
+              >
+                {Object.keys(languages).map((key) => (
+                  <option key={key} value={languages[key]}>
+                    {languages[key]}
+                  </option>
+                ))}
+              </select>
+            </li>
+            <li className="d-flex">
+              <span className="w-100 text-left">Grid border</span>
+              <span>
+                <label class="checkbox">
+                  <input
+                    type="checkbox"
+                    name="showGridBorder"
+                    onChange={onChange}
+                    checked={settings.showGridBorder}
+                  />
+                  <span class="checkmark"></span>
+                </label>
+              </span>
+            </li>
+          </ul>
           <h4>Mobile</h4>
           <ul>
             <li>
               <span>Vibration</span>
               <span>
-                <input
-                  type="checkbox"
-                  name="vibration"
-                  onChange={onChange}
-                  checked={settings.vibration}
-                />
+                <label class="checkbox">
+                  <input
+                    type="checkbox"
+                    name="vibration"
+                    onChange={onChange}
+                    checked={settings.vibration}
+                  />
+                  <span class="checkmark"></span>
+                </label>
               </span>
             </li>
           </ul>
@@ -136,10 +190,10 @@ function TopScorers(props) {
       header="TOP SCORERS"
       footer={
         <div>
-          <div style={{ width: "50%", float: "right" }} onClick={props.onBack}>
+          <div className="float-right w-50" onClick={props.onBack}>
             BACK
           </div>
-          <div style={{ width: "50%", float: "left" }} onClick={props.onClose}>
+          <div className="float-left w-50" onClick={props.onClose}>
             CLOSE
           </div>
         </div>
@@ -157,10 +211,10 @@ function About(props) {
       header="TOP SCORERS"
       footer={
         <div>
-          <div style={{ width: "50%", float: "right" }} onClick={props.onBack}>
+          <div className="float-right w-50" onClick={props.onBack}>
             BACK
           </div>
-          <div style={{ width: "50%", float: "left" }} onClick={props.onClose}>
+          <div className="float-left w-50" onClick={props.onClose}>
             CLOSE
           </div>
         </div>
