@@ -11,6 +11,21 @@ export default function GameOver(props) {
     if (props.score > record.current) {
       store.set("record", props.score);
       setHasNewRecord(true);
+
+      fetch("/.netlify/functions/create-top-scorer", {
+        body: JSON.stringify({
+          name: "Elnur",
+          score: props.score,
+          date: new Date(),
+        }),
+        method: "POST",
+      })
+        .then((response) => {
+          console.log(response.json());
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
   }, [props.score]);
 
