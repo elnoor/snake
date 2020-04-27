@@ -298,7 +298,7 @@ export default function Game() {
           "game " + (settings.current.theme ? settings.current.theme.key : "")
         }
       >
-        {gameOver && <GameOver score={score} playAgain={reset} />}
+        {gameOver && <GameOver score={score} userName={settings.userName} playAgain={reset} />}
         <div
           className="main"
           style={{

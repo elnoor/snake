@@ -13,20 +13,22 @@ export default function GameOver(props) {
       store.set("record", props.score);
       setHasNewRecord(true);
 
-      axios
-        .post("/.netlify/functions/create-top-scorer", {
-          name: "Elnur",
-          score: props.score,
-          date: new Date(),
-        })
-        .then((response) => {
-          console.log(response.json());
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      if (props.userName) {
+        axios
+          .post("/.netlify/functions/create-top-scorer", {
+            name: props.userName,
+            score: props.score,
+            date: new Date(),
+          })
+          .then((response) => {
+            console.log(response.json());
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
     }
-  }, [props.score]);
+  }, [props.score, props.userName]);
 
   function render() {
     return (
