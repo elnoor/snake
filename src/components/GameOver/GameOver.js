@@ -45,7 +45,7 @@ export default function GameOver(props) {
               <p>Congratulations!</p> New record!
             </h4>
           )}
-          {record.current && record.current > 0 && (
+          {record.current && parseInt(record.current) > 0 && (
             <h5>
               {hasNewRecord ? "your old record" : "your record"}:{" "}
               {record.current}
