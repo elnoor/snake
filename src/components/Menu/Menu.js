@@ -171,10 +171,7 @@ function Settings(props) {
 }
 
 function TopScorers(props) {
-  const [topScorers, setTopScorers] = useState([
-    { data: { name: "Elnur", score: 123 } },
-    { data: { name: "Test", score: 345 } },
-  ]);
+  const [topScorers, setTopScorers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
