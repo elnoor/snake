@@ -13,8 +13,8 @@ exports.handler = (event, context, callback) => {
   return client
     .query(
       q.Map(
-        q.Paginate(q.Match(q.Index("topscorers_by_score")), { size: 100 }),
-        q.Lambda("X", q.Get(q.Var("X")))
+        q.Paginate(q.Match(q.Index("topscorers_by_score_desc")), {size: 100}),
+        q.Lambda(["name", "ref"], q.Get(q.Var("ref")))
       )
     )
     .then((response) => {
