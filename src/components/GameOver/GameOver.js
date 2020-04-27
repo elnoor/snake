@@ -32,6 +32,19 @@ export default function GameOver(props) {
     }
   }, [props.score, props.userName]);
 
+  useEffect(() => {
+    // play again when spacebar pressed on keyboard
+    function onKeyPress(e) {
+      if (e.keyCode === 32) {
+        props.playAgain();
+      }
+    }
+    document.addEventListener("keydown", onKeyPress);
+    return () => {
+      document.removeEventListener("keydown", onKeyPress);
+    };
+  }, [props]);
+
   function render() {
     if (showTopScorers) {
       return (
