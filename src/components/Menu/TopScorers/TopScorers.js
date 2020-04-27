@@ -33,13 +33,17 @@ export default function TopScorers(props) {
       open={true}
       header="TOP SCORERS"
       footer={
-        <div>
-          <div className="float-right w-50" onClick={props.onBack}>
-            BACK
-          </div>
-          <div className="float-left w-50" onClick={props.onClose}>
-            CLOSE
-          </div>
+        <div className="d-flex">
+          {props.onClose && (
+            <div className="float-left w-100" onClick={props.onClose}>
+              CLOSE
+            </div>
+          )}
+          {props.onBack && (
+            <div className="float-right w-100" onClick={props.onBack}>
+              BACK
+            </div>
+          )}
         </div>
       }
     >

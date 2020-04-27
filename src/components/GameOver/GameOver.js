@@ -3,10 +3,12 @@ import Modal from "../Modal/Modal";
 import "./GameOver.css";
 import store from "store";
 import axios from "axios";
+import TopScorers from "./../Menu/TopScorers/TopScorers";
 
 export default function GameOver(props) {
   const record = useRef(store.get("record") || 0); // get user's best score stored in browser memory
   const [hasNewRecord, setHasNewRecord] = useState(false);
+  const [showTopScorers, setShowTopScorers] = useState(false);
 
   useEffect(() => {
     if (props.score > record.current) {
@@ -31,6 +33,14 @@ export default function GameOver(props) {
   }, [props.score, props.userName]);
 
   function render() {
+    if (showTopScorers) {
+      return (
+        <TopScorers
+          onBack={() => setShowTopScorers(false)}
+          userName={props.userName}
+        />
+      );
+    }
     return (
       <Modal
         open={true}
@@ -46,14 +56,22 @@ export default function GameOver(props) {
               <p>Congratulations!</p> New record!
             </h4>
           )}
-          {record.current && parseInt(record.current) > 0 ? (
-            <h5>
-              {hasNewRecord ? "your old record" : "your record"}:{" "}
-              {record.current}
-            </h5>
-          ) : (
-            ""
-          )}
+          {
+            record.current && parseInt(record.current) > 0 ? (
+              <h5 className="d-flex">
+                <span className="w-100 float-left">
+                  {hasNewRecord ? "Your old record" : "Your record"}:{" "}
+                  {record.current}
+                </span>
+                <span
+                  className="w-100 float-right cursor-pointer"
+                  onClick={() => setShowTopScorers(true)}
+                >
+                  Top scorers
+                </span>
+              </h5>
+            ) : null // on purpose
+          }
         </div>
       </Modal>
     );
