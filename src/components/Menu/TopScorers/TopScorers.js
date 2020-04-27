@@ -61,7 +61,7 @@ export default function TopScorers(props) {
             ))}
           </ul>
         ) : (
-          <span>Nothing found here</span>
+          <span>Nothing found here, try again later</span>
         )}
       </div>
     </Modal>

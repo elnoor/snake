@@ -18,7 +18,7 @@ exports.handler = (event, context, callback) => {
       console.log("success", response);
       return callback(null, {
         statusCode: 200,
-        body: JSON.stringify(response),
+        // body: JSON.stringify(response),
       });
     })
     .catch((error) => {

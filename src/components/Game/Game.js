@@ -5,6 +5,7 @@ import { NavPad } from "./../NavPad/NavPad";
 import GameOver from "./../GameOver/GameOver";
 import store from "store";
 import Menu from "../Menu/Menu/Menu";
+import { themes } from "../../constants/enums";
 
 const WIDTH = 12;
 const HEIGHT = 12;
@@ -30,7 +31,7 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-  
+
   // one time mounted stuff here
   useEffect(() => {
     // get settings stored in browser memory
@@ -293,12 +294,14 @@ export default function Game() {
   function render() {
     const { gridSize, landscape, navPadSize } = layout.current;
     return (
-      <div
-        className={
-          "game " + (settings.theme ? settings.theme.key : "")
-        }
-      >
-        {gameOver && <GameOver score={score} userName={settings.userName} playAgain={reset} />}
+      <div className={"game " + (settings.theme ? settings.theme.key : "")}>
+        {gameOver && (
+          <GameOver
+            score={score}
+            userName={settings.userName}
+            playAgain={reset}
+          />
+        )}
         <div
           className="main"
           style={{
@@ -310,13 +313,12 @@ export default function Game() {
             <div className="left">
               <Menu settings={settings} updateSettings={setSettings} />
             </div>
-            <div className="center">Candy Snake</div>
+            <div className="center">
+              {settings.theme ? settings.theme.value : themes.candySnake.value}
+            </div>
             <div className="right">{score}</div>
           </div>
-          <Board
-            grid={grid}
-            showGridBorder={settings.showGridBorder}
-          />
+          <Board grid={grid} showGridBorder={settings.showGridBorder} />
         </div>
         <NavPad
           onClick={changeDirection}
