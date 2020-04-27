@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import "./UserName.css";
 import Modal from "./../../Modal/Modal";
+import store from "store";
 
 /*
  <UserName
+  /// Case 1 - prompting username first time ever
+  initialCheck={true}    // first time user visits game - no username set yet
+  settings={settings}
+  updateSettings={setSettings} 
+
+  /// Case 2 - updating username through settings
   onBack={() => setUserNameModalOpen(false)}
   userName={settings.userName}
   updateUserName={updateUserName} />
@@ -19,8 +26,16 @@ export default function UserName(props) {
   }
 
   function onSave() {
-    props.updateUserName(userName);
-    props.onBack();
+    if (userName) {
+      if (props.initialCheck) {
+        const _settings = { ...props.settings, userName };
+        store.set("settings", _settings);
+        props.updateSettings({ ..._settings });
+      } else {
+        props.updateUserName(userName);
+        props.onBack();
+      }
+    }
   }
 
   return (
@@ -28,14 +43,23 @@ export default function UserName(props) {
       open={true}
       header="USERNAME"
       footer={
-        <div>
-          <div className="float-right w-50" onClick={props.onBack}>
-            BACK
+        props.initialCheck ? (
+          <div className="" onClick={onSave}>
+            LET'S PLAY
           </div>
-          <div className="float-left w-50" onClick={onSave}>
-            SAVE
+        ) : (
+          <div>
+            <div className="float-right w-50" onClick={props.onBack}>
+              BACK
+            </div>
+            <div
+              className={"float-left w-50" + (userName ? "" : " disabled")}
+              onClick={onSave}
+            >
+              SAVE
+            </div>
           </div>
-        </div>
+        )
       }
     >
       <div className="username">

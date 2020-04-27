@@ -139,6 +139,10 @@ input[type="text"] {
 .cursor-pointer:hover {
   cursor: pointer;
 }
+.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
 
 .shine {
   background-image: linear-gradient(

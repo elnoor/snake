@@ -6,6 +6,7 @@ import GameOver from "./../GameOver/GameOver";
 import store from "store";
 import Menu from "../Menu/Menu/Menu";
 import { themes } from "../../constants/enums";
+import UserName from "./../Menu/UserName/UserName";
 
 const WIDTH = 12;
 const HEIGHT = 12;
@@ -292,6 +293,15 @@ export default function Game() {
   }
 
   function render() {
+    if (!settings || !settings.userName) {
+      return (
+        <UserName
+          initialCheck={true}
+          settings={settings}
+          updateSettings={setSettings}
+        />
+      );
+    }
     const { gridSize, landscape, navPadSize } = layout.current;
     return (
       <div className={"game " + (settings.theme ? settings.theme.key : "")}>
