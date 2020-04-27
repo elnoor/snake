@@ -167,6 +167,19 @@ function Settings(props) {
 }
 
 function TopScorers(props) {
+  const [topScorers, setTopScorers] = useState([]);
+
+  useEffect(() => {
+    fetch("/.netlify/functions/get-top-scorers", { method: "GET" })
+      .then((response) => {
+        debugger;
+        setTopScorers(response.json());
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
   return (
     <Modal
       open={true}
@@ -182,7 +195,15 @@ function TopScorers(props) {
         </div>
       }
     >
-      Under construction
+      {topScorers && topScorers.length > 0 && (
+        <ul>
+          {topScorers.map((ts, index) => (
+            <li>
+              {ts.name} {ts.score}
+            </li>
+          ))}
+        </ul>
+      )}
     </Modal>
   );
 }
