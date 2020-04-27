@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Modal from "../Modal/Modal";
 import "./GameOver.css";
 import store from "store";
+import { axios } from "axios";
 
 export default function GameOver(props) {
   const record = useRef(store.get("record") || 0); // get user's best score stored in browser memory
@@ -12,14 +13,12 @@ export default function GameOver(props) {
       store.set("record", props.score);
       setHasNewRecord(true);
 
-      fetch("/.netlify/functions/create-top-scorer", {
-        body: JSON.stringify({
+      axios
+        .post("/.netlify/functions/create-top-scorer", {
           name: "Elnur",
           score: props.score,
           date: new Date(),
-        }),
-        method: "POST",
-      })
+        })
         .then((response) => {
           console.log(response.json());
         })

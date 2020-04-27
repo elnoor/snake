@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./Menu.css";
 import Modal from "../Modal/Modal";
 import store from "store";
+import axios from "axios";
 import { menuOptions, themes } from "../../constants/enums";
+import loadingImage from "../../assets/img/loading.svg";
 
 export default function (props) {
   const [showMenu, setShowMenu] = useState(false);
@@ -168,15 +170,20 @@ function Settings(props) {
 
 function TopScorers(props) {
   const [topScorers, setTopScorers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/.netlify/functions/get-top-scorers", { method: "GET" })
-      .then((response) => {
+    axios
+      .get("/.netlify/functions/get-top-scorers")
+      .then((response, data) => {
         debugger;
         setTopScorers(response.json());
       })
       .catch((err) => {
         console.error(err);
+      })
+      .then(function() {
+        setLoading(false);
       });
   }, []);
 
@@ -195,6 +202,7 @@ function TopScorers(props) {
         </div>
       }
     >
+      {loading && <img src={loadingImage} alt="loading..." />}
       {topScorers && topScorers.length > 0 && (
         <ul>
           {topScorers.map((ts, index) => (

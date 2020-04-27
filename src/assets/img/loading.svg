@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff;display:block;" width="100px" height="100px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+<circle cx="84" cy="50" r="2.88958" fill="#ff3f94">
+    <animate attributeName="r" repeatCount="indefinite" dur="0.41666666666666663s" calcMode="spline" keyTimes="0;1" values="10;0" keySplines="0 0.5 0.5 1" begin="0s"></animate>
+    <animate attributeName="fill" repeatCount="indefinite" dur="1.6666666666666665s" calcMode="discrete" keyTimes="0;0.25;0.5;0.75;1" values="#ff3f94;#ff7c00;#00c8ff;#22a900;#ff3f94" begin="0s"></animate>
+</circle><circle cx="74.1748" cy="50" r="10" fill="#ff3f94">
+  <animate attributeName="r" repeatCount="indefinite" dur="1.6666666666666665s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="0s"></animate>
+  <animate attributeName="cx" repeatCount="indefinite" dur="1.6666666666666665s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="0s"></animate>
+</circle><circle cx="16" cy="50" r="0" fill="#22a900">
+  <animate attributeName="r" repeatCount="indefinite" dur="1.6666666666666665s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.41666666666666663s"></animate>
+  <animate attributeName="cx" repeatCount="indefinite" dur="1.6666666666666665s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.41666666666666663s"></animate>
+</circle><circle cx="16" cy="50" r="7.11025" fill="#00c8ff">
+  <animate attributeName="r" repeatCount="indefinite" dur="1.6666666666666665s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.8333333333333333s"></animate>
+  <animate attributeName="cx" repeatCount="indefinite" dur="1.6666666666666665s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.8333333333333333s"></animate>
+</circle><circle cx="40.1748" cy="50" r="10" fill="#ff7c00">
+  <animate attributeName="r" repeatCount="indefinite" dur="1.6666666666666665s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-1.2499999999999998s"></animate>
+  <animate attributeName="cx" repeatCount="indefinite" dur="1.6666666666666665s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-1.2499999999999998s"></animate>
+</circle>
+</svg>
