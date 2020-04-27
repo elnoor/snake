@@ -48,6 +48,15 @@ select {
   user-select: none;
 }
 
+input[type="text"] {
+  border: 2px solid #bdbebd;
+  border-radius: 3px;
+  color: #bdbebd;
+  font-weight: bold;
+  outline: none !important;
+  padding: 2px 10px;
+}
+
 /* CHECKBOX START */
 .checkbox input {
   position: absolute;
@@ -93,6 +102,7 @@ select {
 }
 /* CHECKBOX END */
 
+/* UTILITIES START */
 .d-flex {
   display: flex;
 }
@@ -126,15 +136,25 @@ select {
 .text-left {
   text-align: left;
 }
+.cursor-pointer:hover {
+  cursor: pointer;
+}
 
-
-.shine{
-  background-image: linear-gradient( to right, transparent 33%, rgba(255,255,255,0.3) 50%, transparent 66% );
+.shine {
+  background-image: linear-gradient(
+    to right,
+    transparent 33%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 66%
+  );
   background-size: 1000% 1%;
   animation: shine 2s infinite;
 }
+
+/* UTILITIES START */
+
 @keyframes shine {
   0% {
-    background-position: right;    
+    background-position: right;
   }
 }

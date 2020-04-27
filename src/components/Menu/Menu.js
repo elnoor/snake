@@ -67,10 +67,12 @@ export default function (props) {
 }
 
 function Settings(props) {
+  const [userNameModalOpen, setUserNameModalOpen] = useState(false);
   const [settings, setSettings] = useState({
     vibration: false,
     showGridBorder: true,
     theme: themes.candySnake,
+    userName: "",
   });
 
   useEffect(() => {
@@ -99,6 +101,15 @@ function Settings(props) {
     window.location.reload();
   }
   function render() {
+    if (userNameModalOpen) {
+      return (
+        <UserName
+          onBack={() => setUserNameModalOpen(false)}
+          // onClose={props.onClose}
+          userName={settings.userName}
+        />
+      );
+    }
     return (
       <Modal
         open={true}
@@ -143,6 +154,15 @@ function Settings(props) {
                   />
                   <span class="checkmark"></span>
                 </label>
+              </span>
+            </li>
+            <li className="d-flex">
+              <span className="w-100 text-left">Username</span>
+              <span
+                className="w-100 text-right cursor-pointer"
+                onClick={() => setUserNameModalOpen(true)}
+              >
+                {props.settings.userName || "Not Set"}
               </span>
             </li>
           </ul>
@@ -215,6 +235,39 @@ function TopScorers(props) {
             ))}
           </ul>
         )}
+      </div>
+    </Modal>
+  );
+}
+
+function UserName(props) {
+  const [userName, setUserName] = useState(props.userName || "");
+
+  return (
+    <Modal
+      open={true}
+      header="USERNAME"
+      footer={
+        <div>
+          <div className="float-right w-50" onClick={props.onBack}>
+            BACK
+          </div>
+          <div className="float-left w-50" onClick={props.onClose}>
+            CLOSE
+          </div>
+        </div>
+      }
+    >
+      <div className="username">
+        <input
+          type="text"
+          name="userName"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
+        <legend>
+          This username will appear in top scorers if you can make it to the list
+        </legend>
       </div>
     </Modal>
   );

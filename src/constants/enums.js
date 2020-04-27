@@ -1,7 +1,7 @@
 export const menuOptions = {
   settings: "Settings",
   topScorers: "Top scorers",
-  about: "About",
+  about: "About"
 };
 
 export const themes = {
