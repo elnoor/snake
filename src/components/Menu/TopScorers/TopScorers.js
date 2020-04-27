@@ -4,6 +4,12 @@ import loadingImage from "../../../assets/img/loading.svg";
 import axios from "axios";
 import Modal from "./../../Modal/Modal";
 
+/*
+    <TopScorers 
+        onBack={onBack}
+        onClose={onClose}
+        userName={props.settings.userName} />
+*/
 export default function TopScorers(props) {
   const [topScorers, setTopScorers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,7 +52,7 @@ export default function TopScorers(props) {
               <li
                 key={index}
                 className={
-                  "d-flex" + (ts.name === props.userName ? " active" : "")
+                  "d-flex" + (ts.data.name === props.userName ? " active" : "")
                 }
               >
                 <span className="w-100">{ts.data.name}</span>

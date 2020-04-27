@@ -1,6 +1,14 @@
 import React from "react";
 import "./Modal.css";
 
+/*
+  <Modal
+      open={true}
+      header="MENU"
+      footer={<div onClick={() => setShowMenu(false)}>CLOSE</div>}>
+    Body here
+  </Modal>
+*/
 export default function Modal(props) {
   function render() {
     return (

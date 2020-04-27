@@ -6,6 +6,11 @@ import Settings from "./../Settings/Settings";
 import TopScorers from "./../TopScorers/TopScorers";
 import About from "./../About/About";
 
+/*
+  <Menu
+    settings={settings}
+    updateSettings={setSettings} />
+*/
 export default function (props) {
   const [showMenu, setShowMenu] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -29,7 +34,7 @@ export default function (props) {
         />
       );
     } else if (selectedOption === menuOptions.topScorers) {
-      return <TopScorers onBack={onBack} onClose={onClose} />;
+      return <TopScorers onBack={onBack} onClose={onClose} userName={props.settings.userName} />;
     } else if (selectedOption === menuOptions.about) {
       return <About onBack={onBack} onClose={onClose} />;
     } else {

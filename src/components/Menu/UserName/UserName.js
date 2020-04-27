@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import "./UserName.css";
 import Modal from "./../../Modal/Modal";
 
+/*
+ <UserName
+  onBack={() => setUserNameModalOpen(false)}
+  userName={settings.userName}
+  updateUserName={updateUserName} />
+*/
 export default function UserName(props) {
   const [userName, setUserName] = useState(props.userName || "");
 
@@ -12,7 +18,7 @@ export default function UserName(props) {
     }
   }
 
-  function onSave(){    
+  function onSave() {
     props.updateUserName(userName);
     props.onBack();
   }
@@ -25,7 +31,7 @@ export default function UserName(props) {
         <div>
           <div className="float-right w-50" onClick={props.onBack}>
             BACK
-          </div>          
+          </div>
           <div className="float-left w-50" onClick={onSave}>
             SAVE
           </div>

@@ -6,6 +6,12 @@ import Modal from "./../../Modal/Modal";
 import UserName from "./../UserName/UserName";
 import "./Settings.css";
 
+/*
+ <Settings
+    settings={props.settings}
+    updateSettings={props.updateSettings}
+    onBack={() => setSelectedOption(null)} />
+*/
 export default function Settings(props) {
   const [userNameModalOpen, setUserNameModalOpen] = useState(false);
   const [settings, setSettings] = useState({
@@ -52,7 +58,6 @@ export default function Settings(props) {
       return (
         <UserName
           onBack={() => setUserNameModalOpen(false)}
-          onClose={props.onClose}
           userName={settings.userName}
           updateUserName={updateUserName}
         />
