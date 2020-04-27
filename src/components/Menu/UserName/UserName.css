@@ -1,0 +1,11 @@
+
+.username {
+    padding: 30px;
+  }
+  .username input {
+    width: calc(100% - 20px);
+    height: 40px;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  

@@ -4,7 +4,7 @@ import { Board } from "./../Board/Board";
 import { NavPad } from "./../NavPad/NavPad";
 import GameOver from "./../GameOver/GameOver";
 import store from "store";
-import Menu from "../Menu/Menu";
+import Menu from "../Menu/Menu/Menu";
 
 const WIDTH = 12;
 const HEIGHT = 12;
@@ -20,8 +20,8 @@ const FOOD_OPTIONS = [
 ];
 
 export default function Game() {
-  const settings = useRef({});
   const layout = useRef({ gridSize: {}, navPadSize: {}, landscape: false });
+  const [settings, setSettings] = useState({});
   const [grid, setGrid] = useState([]);
   const [snake, setSnake] = useState([{ x: 0, y: 0 }]);
   const [stomach, setStomach] = useState([]);
@@ -34,7 +34,7 @@ export default function Game() {
   // one time mounted stuff here
   useEffect(() => {
     // get settings stored in browser memory
-    settings.current = store.get("settings") || {};
+    setSettings(store.get("settings") || {});
 
     // detect screen size change, adjust grid size based on it, place navpad based on ladscape/portrait mode
     const headerheight = 50;
@@ -295,7 +295,7 @@ export default function Game() {
     return (
       <div
         className={
-          "game " + (settings.current.theme ? settings.current.theme.key : "")
+          "game " + (settings.theme ? settings.theme.key : "")
         }
       >
         {gameOver && <GameOver score={score} userName={settings.userName} playAgain={reset} />}
@@ -308,14 +308,14 @@ export default function Game() {
         >
           <div className="header">
             <div className="left">
-              <Menu settings={settings.current} />
+              <Menu settings={settings} updateSettings={setSettings} />
             </div>
             <div className="center">Candy Snake</div>
             <div className="right">{score}</div>
           </div>
           <Board
             grid={grid}
-            showGridBorder={settings.current.showGridBorder}
+            showGridBorder={settings.showGridBorder}
           />
         </div>
         <NavPad
@@ -323,7 +323,7 @@ export default function Game() {
           width={navPadSize.width}
           height={navPadSize.height}
           landscape={landscape}
-          vibration={settings.current.vibration}
+          vibration={settings.vibration}
         />
       </div>
     );

@@ -1,0 +1,40 @@
+.dots {
+  display: flex;
+  padding-top: 5px;
+  height: 100%;
+  width: fit-content;
+}
+.dots:hover {
+  cursor: pointer;
+}
+.dots:hover > div {
+  background: #bebebe;
+}
+.dots > div {
+  width: 4px;
+  height: 4px;
+  margin-right: 2px;
+  border-radius: 50%;
+  border: 2px solid #bebebe;
+}
+
+.menu-wrapper {
+  display: inline;
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 20px 5px;
+  font-size: 1.5rem;
+}
+.menu li {
+  padding: 3px 0;
+}
+.menu li span:hover {
+  color: #dcdcdc;
+  cursor: pointer;
+}
+
+
+

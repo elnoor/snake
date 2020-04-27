@@ -1,0 +1,25 @@
+
+.settings {
+    padding: 15px;
+    font-size: 1.3rem;
+  }
+  .settings h4 {
+    background: #ecedec;
+    margin: 0 -15px 10px -15px;
+  }
+  .settings ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flow-root;
+    font-size: 1.2rem;
+  }
+  .settings li {
+    margin-bottom: 12px;
+  }
+  .settings li span:first-child {
+    float: left;
+  }
+  .settings li span:last-child {
+    float: right;
+  }

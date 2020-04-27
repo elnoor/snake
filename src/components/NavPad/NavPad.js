@@ -7,7 +7,7 @@ import "./NavPad.css";
     width={navPadSize.width}
     height={navPadSize.height}
     landscape={landscape}
-    vibration={settings.current.vibration}
+    vibration={settings.vibration}
   />
 */
 
