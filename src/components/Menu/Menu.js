@@ -175,14 +175,13 @@ function TopScorers(props) {
   useEffect(() => {
     axios
       .get("/.netlify/functions/get-top-scorers")
-      .then((response, data) => {
-        debugger;
-        setTopScorers(response.json());
+      .then((response) => {
+        setTopScorers(response.data.data);
       })
       .catch((err) => {
         console.error(err);
       })
-      .then(function() {
+      .then(function () {
         setLoading(false);
       });
   }, []);
@@ -206,8 +205,9 @@ function TopScorers(props) {
       {topScorers && topScorers.length > 0 && (
         <ul>
           {topScorers.map((ts, index) => (
-            <li>
-              {ts.name} {ts.score}
+            <li className="d-flex" key={index}>
+              <span className="float-left">{ts.data.name}</span>
+              <span className="float-right">{ts.data.score}</span>
             </li>
           ))}
         </ul>

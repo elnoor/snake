@@ -20,6 +20,7 @@ export default function GameOver(props) {
           date: new Date(),
         })
         .then((response) => {
+          debugger;
           console.log(response.json());
         })
         .catch((err) => {
