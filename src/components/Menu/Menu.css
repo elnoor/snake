@@ -22,16 +22,16 @@
   display: inline;
 }
 
-ul.menu {
+.menu ul {
   list-style-type: none;
   margin: 0;
   padding: 20px 5px;
   font-size: 1.5rem;
 }
-ul.menu li {
+.menu li {
   padding: 3px 0;
 }
-ul.menu li span:hover {
+.menu li span:hover {
   color: #dcdcdc;
   cursor: pointer;
 }
@@ -51,7 +51,7 @@ ul.menu li span:hover {
   display: flow-root;
   font-size: 1.2rem;
 }
-.settings li{
+.settings li {
   margin-bottom: 12px;
 }
 .settings li span:first-child {
@@ -59,4 +59,18 @@ ul.menu li span:hover {
 }
 .settings li span:last-child {
   float: right;
+}
+
+.top-scorers {
+  padding: 15px;
+  text-align: left;
+}
+.top-scorers ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.top-scorers li:hover {
+  color: #63bb57;
+  cursor: default;
 }

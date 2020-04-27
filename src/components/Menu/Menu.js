@@ -38,15 +38,17 @@ export default function (props) {
           header="MENU"
           footer={<div onClick={() => setShowMenu(false)}>CLOSE</div>}
         >
-          <ul className="menu">
-            {Object.keys(menuOptions).map((key) => (
-              <li key={key}>
-                <span onClick={() => setSelectedOption(menuOptions[key])}>
-                  {menuOptions[key]}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="menu">
+            <ul>
+              {Object.keys(menuOptions).map((key) => (
+                <li key={key}>
+                  <span onClick={() => setSelectedOption(menuOptions[key])}>
+                    {menuOptions[key]}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </Modal>
       );
     }
@@ -169,7 +171,10 @@ function Settings(props) {
 }
 
 function TopScorers(props) {
-  const [topScorers, setTopScorers] = useState([]);
+  const [topScorers, setTopScorers] = useState([
+    { data: { name: "Elnur", score: 123 } },
+    { data: { name: "Test", score: 345 } },
+  ]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -201,17 +206,19 @@ function TopScorers(props) {
         </div>
       }
     >
-      {loading && <img src={loadingImage} alt="loading..." />}
-      {topScorers && topScorers.length > 0 && (
-        <ul>
-          {topScorers.map((ts, index) => (
-            <li className="d-flex" key={index}>
-              <span className="float-left">{ts.data.name}</span>
-              <span className="float-right">{ts.data.score}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="top-scorers">
+        {loading && <img src={loadingImage} alt="loading..." />}
+        {topScorers && topScorers.length > 0 && (
+          <ul>
+            {topScorers.map((ts, index) => (
+              <li key={index} className="d-flex">
+                <span className="w-100">{ts.data.name}</span>
+                <span>{ts.data.score}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </Modal>
   );
 }
