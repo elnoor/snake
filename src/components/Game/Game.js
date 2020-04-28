@@ -311,7 +311,7 @@ export default function Game() {
     const { gridSize, landscape, navPadSize } = layout.current;
     return (
       <div className={"game " + (settings.theme ? settings.theme.key : "")}>
-        {(!settings || !settings.userName) && (
+        {(settings && !settings.userName) && (
           <UserName
             initialCheck={true}
             settings={settings}
