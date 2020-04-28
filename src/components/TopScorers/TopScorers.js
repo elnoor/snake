@@ -59,7 +59,7 @@ export default function TopScorers(props) {
                   "d-flex" + (ts.data.name === props.userName ? " active" : "")
                 }
               >
-                <span style={{ marginRight: "15px" }}>
+                <span style={{ marginRight: index < 3 ? "12px" : "15px" }}>
                   {index < 3 ? (
                     <svg viewBox="0 0 24 24">
                       <path
