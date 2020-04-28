@@ -36,10 +36,24 @@ export default function Game() {
   // one time mounted stuff here
   useEffect(() => {
     // get settings stored in browser memory
-    setSettings(store.get("settings") || {});
+    const _settings = store.get("settings") || {};
 
+    // read theme from url and set it in settings (below) as default if none is set
+    if (window.location.search && !_settings.theme) {
+      const themeKey = new URLSearchParams(window.location.search).get("theme");
+      if (themeKey) {
+        const theme = Object.values(themes).find(
+          (t) => t.key.toLowerCase() === themeKey.toLowerCase()
+        );
+        if (theme) {
+          _settings.theme = theme;
+        }
+      }
+    }
+    setSettings(_settings);
+
+    // detect screen size change, adjust grid size based on it, place navpad based on ladscape/portrait mode
     function getLayout() {
-      // detect screen size change, adjust grid size based on it, place navpad based on ladscape/portrait mode
       const headerheight = 50;
       const innerPadding = 25;
       const innerHeight = window.innerHeight - innerPadding * 2;
