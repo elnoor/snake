@@ -1,4 +1,4 @@
-###[PLAY NOW](https://candysnake.netlify.app/)
+### [PLAY NOW](https://candysnake.netlify.app/)
 
 <br/>Built with React (hooks)
 <br/>
