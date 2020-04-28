@@ -6,7 +6,7 @@ import GameOver from "./../GameOver/GameOver";
 import store from "store";
 import Menu from "../Menu/Menu/Menu";
 import { themes } from "../../constants/enums";
-import UserName from "./../Menu/UserName/UserName";
+import UserName from "../UserName/UserName";
 
 const WIDTH = 12;
 const HEIGHT = 12;
@@ -38,12 +38,13 @@ export default function Game() {
     // get settings stored in browser memory
     setSettings(store.get("settings") || {});
 
-    // detect screen size change, adjust grid size based on it, place navpad based on ladscape/portrait mode
-    const headerheight = 50;
-    const innerPadding = 25;
-    const innerHeight = window.innerHeight - innerPadding * 2;
-    const innerWidth = window.innerWidth - innerPadding * 2;
     function getLayout() {
+      // detect screen size change, adjust grid size based on it, place navpad based on ladscape/portrait mode
+      const headerheight = 50;
+      const innerPadding = 25;
+      const innerHeight = window.innerHeight - innerPadding * 2;
+      const innerWidth = window.innerWidth - innerPadding * 2;
+
       if (innerWidth < innerHeight) {
         layout.current = {
           landscape: false,
@@ -293,18 +294,16 @@ export default function Game() {
   }
 
   function render() {
-    if (!settings || !settings.userName) {
-      return (
-        <UserName
-          initialCheck={true}
-          settings={settings}
-          updateSettings={setSettings}
-        />
-      );
-    }
     const { gridSize, landscape, navPadSize } = layout.current;
     return (
       <div className={"game " + (settings.theme ? settings.theme.key : "")}>
+        {(!settings || !settings.userName) && (
+          <UserName
+            initialCheck={true}
+            settings={settings}
+            updateSettings={setSettings}
+          />
+        )}
         {gameOver && (
           <GameOver
             score={score}

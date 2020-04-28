@@ -3,7 +3,7 @@ import { useState } from "react";
 import { themes } from "../../../constants/enums";
 import store from "store";
 import Modal from "./../../Modal/Modal";
-import UserName from "./../UserName/UserName";
+import UserName from "../../UserName/UserName";
 import "./Settings.css";
 
 /*
@@ -98,14 +98,14 @@ export default function Settings(props) {
             <li className="d-flex">
               <span className="w-100 text-left">Grid border</span>
               <span>
-                <label class="checkbox">
+                <label className="checkbox">
                   <input
                     type="checkbox"
                     name="showGridBorder"
                     onChange={onChange}
                     checked={settings.showGridBorder}
                   />
-                  <span class="checkmark"></span>
+                  <span className="checkmark"></span>
                 </label>
               </span>
             </li>
@@ -124,14 +124,14 @@ export default function Settings(props) {
             <li>
               <span>Vibration</span>
               <span>
-                <label class="checkbox">
+                <label className="checkbox">
                   <input
                     type="checkbox"
                     name="vibration"
                     onChange={onChange}
                     checked={settings.vibration}
                   />
-                  <span class="checkmark"></span>
+                  <span className="checkmark"></span>
                 </label>
               </span>
             </li>

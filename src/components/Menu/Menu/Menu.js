@@ -3,7 +3,7 @@ import "./Menu.css";
 import Modal from "../../Modal/Modal";
 import { menuOptions } from "../../../constants/enums";
 import Settings from "./../Settings/Settings";
-import TopScorers from "./../TopScorers/TopScorers";
+import TopScorers from "../../TopScorers/TopScorers";
 import About from "./../About/About";
 
 /*

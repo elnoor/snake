@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./UserName.css";
-import Modal from "./../../Modal/Modal";
+import Modal from "../Modal/Modal";
 import store from "store";
 
 /*

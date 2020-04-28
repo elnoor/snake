@@ -3,7 +3,7 @@ import Modal from "../Modal/Modal";
 import "./GameOver.css";
 import store from "store";
 import axios from "axios";
-import TopScorers from "./../Menu/TopScorers/TopScorers";
+import TopScorers from "../TopScorers/TopScorers";
 
 export default function GameOver(props) {
   const record = useRef(store.get("record") || 0); // get user's best score stored in browser memory

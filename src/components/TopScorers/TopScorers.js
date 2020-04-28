@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./TopScorers.css";
-import loadingImage from "../../../assets/img/loading.svg";
+import loadingImage from "../../assets/img/loading.svg";
 import axios from "axios";
-import Modal from "./../../Modal/Modal";
+import Modal from "../Modal/Modal";
 
 /*
     <TopScorers 
@@ -59,6 +59,7 @@ export default function TopScorers(props) {
                   "d-flex" + (ts.data.name === props.userName ? " active" : "")
                 }
               >
+                <span>{index}</span>
                 <span className="w-100">{ts.data.name}</span>
                 <span>{ts.data.score}</span>
               </li>
