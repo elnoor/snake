@@ -57,6 +57,12 @@ input[type="text"] {
   padding: 2px 10px;
 }
 
+a {
+  color: #63bb57;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /* CHECKBOX START */
 .checkbox input {
   position: absolute;
@@ -123,6 +129,9 @@ input[type="text"] {
 }
 .margin-0 {
   margin: 0;
+}
+.margin-top-0 {
+  margin-top: 0;
 }
 .padding-0 {
   padding: 0;
