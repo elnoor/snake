@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { themes } from "../../../constants/enums";
 import store from "store";
 import Modal from "./../../Modal/Modal";
@@ -14,6 +13,7 @@ import "./Settings.css";
 */
 export default function Settings(props) {
   const [userNameModalOpen, setUserNameModalOpen] = useState(false);
+  const [hasChanges, setHasChanges] = useState(false);
   const [settings, setSettings] = useState({
     vibration: false,
     showGridBorder: true,
@@ -21,7 +21,7 @@ export default function Settings(props) {
     userName: "",
   });
 
-  useState(() => {
+  useEffect(() => {
     setSettings((prevSettings) => {
       return { ...prevSettings, ...props.settings };
     });
@@ -40,17 +40,20 @@ export default function Settings(props) {
       _settings[name] = value;
     }
     setSettings(_settings);
+    setHasChanges(true);
   }
 
   function apply() {
     store.set("settings", settings);
     props.updateSettings({ ...settings });
+    setHasChanges(false);
   }
 
   function updateUserName(userName) {
     setSettings((prevSettings) => {
       return { ...prevSettings, userName };
     });
+    setHasChanges(true);
   }
 
   function render() {
@@ -72,7 +75,10 @@ export default function Settings(props) {
             <div className="float-right w-50" onClick={props.onBack}>
               BACK
             </div>
-            <div className="float-left w-50" onClick={apply}>
+            <div
+              className={"float-left w-50" + (hasChanges ? "" : " disabled")}
+              onClick={apply}
+            >
               APPLY
             </div>
           </div>
