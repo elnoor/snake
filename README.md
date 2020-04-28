@@ -1,4 +1,6 @@
-Built with React (hooks)
+###[PLAY NOW](https://candysnake.netlify.app/)
+
+<br/>Built with React (hooks)
 <br/>
 [FaunaDb](https://fauna.com/) is used as database
 <br/>
