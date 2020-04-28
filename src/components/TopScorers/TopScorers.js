@@ -59,7 +59,7 @@ export default function TopScorers(props) {
                   "d-flex" + (ts.data.name === props.userName ? " active" : "")
                 }
               >
-                <span>{index}</span>
+                <span style={{marginRight:"15px"}}>{index}</span>
                 <span className="w-100">{ts.data.name}</span>
                 <span>{ts.data.score}</span>
               </li>
