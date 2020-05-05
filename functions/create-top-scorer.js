@@ -1,4 +1,5 @@
 import faunadb from "faunadb";
+import sanitizer from "sanitize";
 
 const q = faunadb.query;
 const client = new faunadb.Client({
@@ -8,8 +9,14 @@ const client = new faunadb.Client({
 /* export our lambda function as named "handler" export */
 exports.handler = (event, context, callback) => {
   /* parse the string body into a useable JS object */
-  const newScore = JSON.parse(event.body);
+  let newScore = JSON.parse(event.body);
   console.log("Function `create-top-scorer` invoked with data: ", newScore);
+  newScore.score = parseInt(newScore.score) || 0;
+  if (!newScore || newScore.score === 0) {
+    console.log("Function `create-top-scorer` stopped, invalid score");
+  }
+  newScore.date = new Date();
+  newScore = sanitizer.value(newScore.name, "string");
 
   /* construct the fauna query */
   return client

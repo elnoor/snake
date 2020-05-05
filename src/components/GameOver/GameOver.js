@@ -19,8 +19,7 @@ export default function GameOver(props) {
         axios
           .post("/.netlify/functions/create-top-scorer", {
             name: props.userName,
-            score: props.score,
-            date: new Date(),
+            score: props.score
           })
           .then((response) => {
             // console.log(response);
