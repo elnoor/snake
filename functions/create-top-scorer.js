@@ -15,9 +15,12 @@ exports.handler = (event, context, callback) => {
   if (!newScore || newScore.score === 0) {
     console.log("Function `create-top-scorer` stopped, invalid score");
   }
+  
+  console.log("Debugger 1");
   newScore.date = new Date();
   newScore = sanitizer.value(newScore.name, "string");
 
+  console.log("Debugger 2");
   /* construct the fauna query */
   return client
     .query(q.Create(q.Collection("TopScorers"), { data: newScore }))
