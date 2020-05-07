@@ -11,14 +11,14 @@ exports.handler = (event, context, callback) => {
   /* parse the string body into a useable JS object */
   let newScore = JSON.parse(event.body);
   console.log("Function `create-top-scorer` invoked with data: ", newScore);
-  newScore.score = newScore.score ? parseInt(newScore.score) || 0 : 0;
+  newScore.score = parseInt(newScore.score) || 0;
   if (!newScore || newScore.score === 0) {
     console.log("Function `create-top-scorer` stopped, invalid score");
   }
   
   console.log("Debugger 1");
   newScore.date = new Date();
-  newScore = sanitizer.value(newScore.name, "string");
+  newScore.name = sanitizer.value(newScore.name, "string");
 
   console.log("Debugger 2");
   /* construct the fauna query */
